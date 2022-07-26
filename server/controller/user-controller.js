@@ -3,10 +3,10 @@ import User from '../model/userSchema.js';
 export const userLogIn = async (request, response) => {
     try {
         let user = await User.findOne({ username: request.body.username, password: request.body.password });
-        if(user) {
-            return response.status(200).json(`${request.body.username} login successfull`);
-        } else {
+        if(user==null) {
             return response.status(401).json('Invalid Login');
+        } else {
+            return response.status(200).json(`${request.body.username} login successfull`);
         }
 
     } catch (error) {
