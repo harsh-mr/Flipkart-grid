@@ -8,7 +8,8 @@ import DetailView from './Components/ItemDetails/DetailView';
 import TemplateProvider from './templates/TemplateProvider';
 import ContextProvider from './context/ContextProvider';
 import Cart from './Components/Cart/Cart';
-import AddProduct from './Components/AddProduct';
+import AddNFT from './Components/Add/AddNFT';
+import AddProduct from './Components/Add/AddProduct';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path= '/' element={<Home />} />
               <Route path= '/cart' element={<Cart />} />
+              <Route path= '/addnft' element={<AddNFT />} />
               <Route path= '/addproduct' element={<AddProduct />} />
               <Route path= '/product/:id' element={<DetailView />} />
             </Routes>

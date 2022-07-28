@@ -1,5 +1,5 @@
 import express from  'express';
-import { getProductById, getProducts,postNFT } from '../controller/product-controller.js';
+import { getProductById, getProducts,postNFT,postProduct } from '../controller/product-controller.js';
 import { userSignUp, userLogIn } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
 import { addPaymentGateway, paymentResponse } from '../controller/payment-controller.js';
@@ -18,5 +18,7 @@ router.get('/product/:id', getProductById);
 router.post('/payment', addPaymentGateway);
 router.post('/callback', paymentResponse);
 router.post('/postnft',postNFT);
+router.post('/postnft',postNFT);
+router.post('/postproduct',postProduct);
 
 export default router;

@@ -4,7 +4,7 @@ import autoIncrement from 'mongoose-auto-increment';
 const nftSchema = new mongoose.Schema({
     //Stores all the different serial number of the products
     productID:{
-        type:Number,
+        type:String,
         required:true
     },
    serial_no:{
@@ -12,7 +12,7 @@ const nftSchema = new mongoose.Schema({
     required:true
    },
    //Stores the ipfs url where the nft is stored
-   nft:{
+   tokenURI:{
     type:String,
     required:true
    },
@@ -27,6 +27,6 @@ const nftSchema = new mongoose.Schema({
 autoIncrement.initialize(mongoose.connection);
 nftSchema.plugin(autoIncrement.plugin, 'nft');
 
-const nfts = mongoose.model('nft', nftSchema);
+const nft = mongoose.model('nft', nftSchema);
 
-export default nfts;
+export default nft;

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
-const {ObjectId}=mongoose.Schema.Types;
+//const {ObjectId}=mongoose.Schema.Types;
 const productSchema = new mongoose.Schema({
    //Stores the name of the specific product
    productID:{
@@ -25,11 +25,7 @@ const productSchema = new mongoose.Schema({
    discription:{
     type:String,
     required:true
-   },
-   detailsof:{
-    type:ObjectId,//used to maintain the relationship
-    ref:'nft'
-}
+   }
 });
 
 autoIncrement.initialize(mongoose.connection);
