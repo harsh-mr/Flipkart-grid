@@ -34,3 +34,11 @@ export  const payUsingPaytm = async (data) => {
         console.log('error', error);
     }
 }
+
+export const postNFTdetails = async (data) => {
+    try {
+        return await axios.post(`${url}/postnft`, data)
+    } catch (error) {
+        console.log('error while calling login API: ', error);
+    }
+}
