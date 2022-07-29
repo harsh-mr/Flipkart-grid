@@ -35,7 +35,7 @@ export  const payUsingPaytm = async (data) => {
     }
 }
 
-export const postNFTdetails = async (data) => {
+export const postTokenID = async (data) => {
     try {
         console.log(data);
         return await axios.post(`${url}/postnft`, data)

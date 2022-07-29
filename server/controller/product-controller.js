@@ -1,5 +1,5 @@
 import Product from '../model/productSchema.js';
-import NFT from '../model/nftSchema.js';
+
 
 export const getProducts = async (request, response) => {
     try {
@@ -23,31 +23,19 @@ export const getProductById = async (request, response) => {
 
 export const postNFT = async (request, response) => {
     try {
-        console.log(request.body)
-        Product.findOne({productID:request.body.productID})
-        .then(user=>{
-            if(!user){
-               return response.json({message:"Not Listed"})
-            }
-        })
-          const nft=new NFT({
-           serialno:request.body.serialno,
-           productID:request.body.productID,
-           tokenID:request.body.tokenID,
-           tokenURI:request.body.tokenURI
-          })
-          nft.save()
-          .then(user=>{
-           // console.log(user._id)
-            if(user){
-                response.json({message:"Successfully NFT Uploaded"})
+        Product.findOneAndUpdate({productID:request.body.productID},{
+            $push:{tokenID:request.body.tokenID}
+        },{
+            new:true
+        }).then(da=>{
+            if(da){
+                response.json({message:"success"})
             }
             else{
-                return response.json({error:"Try Again Later!"})
+                response.json({error:"failed"})
             }
-        }).catch((err)=>{
-            console.log(err);
         })
+        
         }
         //if(Product.findOne({'productID':request.}))
         
