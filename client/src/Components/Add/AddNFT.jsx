@@ -132,8 +132,9 @@ export default function SellNFT () {
               //let productID=formParams.productID;
             let tokenID = await contract.getCurrentToken();
             tokenID=tokenID.toNumber();
+            console.log(tokenID)
             await postTokenID({tokenID,productID})
-            const tokenURI = await contract.tokenURI(tokenID);
+           // const tokenURI = await contract.tokenURI(tokenID);
             
            // console.log(serialno,tokenID,tokenURI,productID)
             // updateData({...data,tokenID});

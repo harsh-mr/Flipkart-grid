@@ -14,7 +14,7 @@ export default function AddPro () {
             const {product_name,discription,price,productID,expiry}=formParams;
              postProductDetails({product_name,discription,price,productID,product_image,expiry})
              .then(
-                window.location.replace(`/addnft/:${productID}`),
+                window.location.replace(`/addnft/${productID}`),
              )
              
         }

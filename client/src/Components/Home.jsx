@@ -1,4 +1,5 @@
-import React,  { useEffect } from 'react';
+import React,  { useEffect ,useState} from 'react';
+import axios from 'axios';
 
 import { Box, styled } from '@mui/material';
 
@@ -8,23 +9,29 @@ import MidSlide from './Home/MidSlide';
 import MidSection from './Home/MidSection';
 import Slide from './Home/Slide';
 
-import { useSelector, useDispatch } from 'react-redux'; // hooks
-import { getProducts as listProducts } from '../redux/actions/productActions';
+
+
 
 const Component = styled(Box)`
     padding: 20px 10px;
-    background: #F2F2F2;
-`;
+    background: #F2F2F2;`
+;
 
 const Home = () => {
-    const getProducts = useSelector(state => state.getProducts);
-    const { products, error } = getProducts;
 
-    const dispatch = useDispatch();
+
+    const [products, setproducts] = useState([]);
+
+
 
     useEffect(() => {
-        dispatch(listProducts())
-    }, [dispatch])
+        const fetch  = async () => {
+            let {data}  = await axios.get("http://localhost:8000/products");
+            setproducts(data);
+            console.log(data);
+        }
+        fetch();
+    }, [])
 
     return (
         <>
@@ -33,12 +40,13 @@ const Home = () => {
                 <Banner />
                 <MidSlide products={products} />
                 <MidSection />
-                <Slide
+                 <Slide
                     data={products} 
                     title='Discounts for You'
                     timer={false} 
                     multi={true} 
                 />
+
                 <Slide
                     data={products} 
                     title='Suggested Items'

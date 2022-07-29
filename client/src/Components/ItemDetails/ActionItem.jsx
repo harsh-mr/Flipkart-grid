@@ -4,8 +4,8 @@ import { Button, Box, styled } from '@mui/material';
 import { ShoppingCart as Cart, FlashOn as Flash } from '@mui/icons-material';
 
 import { useNavigate } from 'react-router-dom';
-
-
+import NFT_Digital_Warranty from '../../NFT_Digital_Warranty.json';
+import {delTokenID} from '../../service/api';
 
 const LeftContainer = styled(Box)(({ theme }) => ({
     minWidth: '40%',
@@ -28,20 +28,39 @@ const StyledButton = styled(Button)`
     color: #FFF;
 `;
 
-const ActionItem = ({ product }) => {
+const ActionItem = ({ product}) => {
     const navigate = useNavigate();
    
-        
+        console.log(product);
     const [quantity, setQuantity] = useState(1);
+    
+    var sale  = async () =>{
+        const ethers = require("ethers");
+        
+    
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const addr = await signer.getAddress();
+  
+        //Pull the deployed contract instance
+        let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+  
+        //create an NFT Token
+          await contract.executeSale(product.id,product.expiry,{value:'0'}).then(
+            async(da)=>{
+               await delTokenID(product.id);
+            }
+        )
+        }
     
 
    
 
     return (
         <LeftContainer>
-            <Image src="https://media.threatpost.com/wp-content/uploads/sites/103/2019/09/26105755/fish-1.jpg" /><br />
+            <Image src={product.image} /><br />
             <StyledButton  style={{marginRight: 10, background: '#ff9f00'}} variant="contained"><Cart />Add to Cart</StyledButton>
-            <StyledButton  style={{background: '#fb641b'}} variant="contained"><Flash /> Buy Now</StyledButton>
+            <StyledButton  style={{background: '#fb641b'}} variant="contained" onClick={sale}><Flash /> Buy Now</StyledButton>
         </LeftContainer>
     )
 }
