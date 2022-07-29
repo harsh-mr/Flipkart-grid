@@ -38,7 +38,7 @@ export default function AddPro() {
         productID,
         product_image,
         expiry,
-      }).then(window.location.replace(`/addnft/:${productID}`));
+      }).then(window.location.replace(`/addnft/${productID}`));
     }
   }, [product_image]);
 
