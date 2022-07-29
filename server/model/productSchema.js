@@ -25,6 +25,10 @@ const productSchema = new mongoose.Schema({
    discription:{
     type:String,
     required:true
+   },
+   expiry:{
+    type:Number,
+    required:true
    }
 });
 

@@ -70,7 +70,8 @@ export const postProduct = async (request, response) => {
                product_name:request.body.product_name,
                price:request.body.price,
                product_image:request.body.product_image,
-               discription:request.body.discription
+               discription:request.body.discription,
+               expiry:request.body.expiry
           })
           product.save()
           .then(user=>{

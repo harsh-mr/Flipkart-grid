@@ -20,8 +20,7 @@ const nftSchema = new mongoose.Schema({
    tokenID:{
     type:Array,
     required:true
-   },
-   
+   }
 });
 
 autoIncrement.initialize(mongoose.connection);

@@ -4,16 +4,16 @@ import { useLocation } from "react-router";
 import {postProductDetails} from "../../service/api";
 
 export default function AddPro () {
-    const [formParams, updateFormParams] = useState({ product_name: '', discription: '', price: '',productID: ''});
+    const [formParams, updateFormParams] = useState({ product_name: '', discription: '', price: '',productID: '',expiry:''});
     const[product_image,setproduct_image]=useState("");
     var file;
 
      useEffect(()=>{
         if(product_image){
            // console.log(formParams)
-            const {product_name,discription,price,productID}=formParams;
-             postProductDetails({product_name,discription,price,productID,product_image});
-             setproduct_image("");
+            const {product_name,discription,price,productID,expiry}=formParams;
+             postProductDetails({product_name,discription,price,productID,product_image,expiry});
+             
         }
     },[product_image])
     async function listProduct(e) {
@@ -56,6 +56,10 @@ return (
             <div className="mb-6">
                 <label className="" htmlFor="Price">Price </label>
                 <input className="" type="number" placeholder="Enter price"  value={formParams.price} onChange={(e )=>{ updateFormParams({...formParams, price: e.target.value})}}></input>
+            </div>
+            <div className="mb-6">
+                <label className="" htmlFor="Expiry">Life of Warranty </label>
+                <input className="" type="number" placeholder="Enter life of warranty"  value={formParams.expiry} onChange={(e )=>{ updateFormParams({...formParams, expiry: e.target.value})}}></input>
             </div>
             <div className="mb-6">
                 <label className="" htmlFor="ProductID">Product ID</label>
