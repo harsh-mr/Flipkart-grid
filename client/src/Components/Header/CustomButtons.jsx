@@ -56,7 +56,7 @@ const LoginButton = styled(Button)(({ theme }) => ({
 
 
 const CustomButtons = () => {
-    
+    let add="/checkProductID";
     const [open, setOpen] = useState(false);
     const { account, setAccount } = useContext(LoginContext);
 
@@ -74,7 +74,7 @@ const CustomButtons = () => {
                     <LoginButton variant="contained" onClick={() => openDialog()}>Login</LoginButton>
                 
             }
-            <Typography style={{ marginTop: 3, width: 135 }}>Become a Seller</Typography>
+            <Typography style={{ marginTop: 3, width: 135 }}><Link to={add}>Sell Product</Link></Typography>
             <Typography style={{ marginTop: 3 }}>More</Typography>
             
             <Container to='/cart'>

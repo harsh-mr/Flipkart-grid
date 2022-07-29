@@ -1,5 +1,5 @@
 import express from  'express';
-import { getProductById, getProducts,postNFT,postProduct } from '../controller/product-controller.js';
+import { getProductById, getProducts,postNFT,postProduct} from '../controller/product-controller.js';
 import { userSignUp, userLogIn } from '../controller/user-controller.js';
 import { addItemInCart } from '../controller/cart-controller.js';
 import { addPaymentGateway, paymentResponse } from '../controller/payment-controller.js';

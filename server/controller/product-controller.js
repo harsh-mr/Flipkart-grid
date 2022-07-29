@@ -91,3 +91,6 @@ export const postProduct = async (request, response) => {
         response.json(error);
     }
 }
+
+
+

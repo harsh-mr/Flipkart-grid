@@ -100,10 +100,13 @@ export default function SellNFT () {
         catch(e) {
             console.log("Error during file upload", e);
         }
+
+
+
         //Upload data to IPFS
         try {
+            console.log(fileURL);
             const metadataURL = await uploadMetadataToIPFS();
-            setTimeout();
             //After adding your Hardhat network to your metamask, this code will get providers and signers
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const signer = provider.getSigner();
@@ -111,7 +114,7 @@ export default function SellNFT () {
 
             //Pull the deployed contract instance
             let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
-             console.log(1);
+
             //massage the params to be sent to the create NFT request
             // const serialno = ethers.utils.parseUnits(formParams.serialno, 'ether')
             // let listingPrice = await contract.getListPrice()
@@ -121,20 +124,14 @@ export default function SellNFT () {
 
             const { serialno} = formParams;
             const { productID} = formParams;
-            //console.log(serialno,metadataURL);
             let transaction = await contract.createToken(metadataURL, serialno, { value: '0' })
-            console.log(2);
             await transaction.wait();
-            console.log(3);
                //Pull the deployed contract instance
               //Get current token id
               //let productID=formParams.productID;
             let tokenID = await contract.getCurrentToken();
-            console.log(4);
             const tokenURI = await contract.tokenURI(tokenID);
-            console.log(5);
             tokenID=tokenID.toNumber();
-            console.log(6);
            // console.log(serialno,tokenID,tokenURI,productID)
             // updateData({...data,tokenID});
             // updateData({...data,tokenURI});
@@ -142,8 +139,8 @@ export default function SellNFT () {
             // console.log(productID);
             alert("Successfully listed your NFT!");
             updateMessage("");
-            updateFormParams({ name: '', description: '', serialno: '',productID:''});
-            // window.location.replace("/")
+            updateFormParams({ name: '', description: '', serialno: ''});
+            window.location.replace("/addnft")
         }
         catch(e) {
             alert( "Upload error"+e )

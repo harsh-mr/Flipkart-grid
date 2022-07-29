@@ -8,7 +8,7 @@ const nftSchema = new mongoose.Schema({
         required:true
     },
    serial_no:{
-    type:Array,
+    type:String,
     required:true
    },
    //Stores the ipfs url where the nft is stored
@@ -18,7 +18,7 @@ const nftSchema = new mongoose.Schema({
    },
    //Stores the serial number corresponding token ids of the corresponding nfts
    tokenID:{
-    type:Array,
+    type:String,
     required:true
    }
 });

@@ -53,3 +53,5 @@ export const postProductDetails = async (data) => {
     }
 }
 
+
+
