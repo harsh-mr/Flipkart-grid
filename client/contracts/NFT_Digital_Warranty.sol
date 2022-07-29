@@ -217,6 +217,8 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         require(block.timestamp>idToListedToken[tokenId].expiry,"warranty is yet to expire");
 
         _burn(tokenId);
+        idToListedToken[tokenId].seller = payable(0x0000000000000000000000000000000000000000);
+        idToListedToken[tokenId].owner = payable(0x0000000000000000000000000000000000000000);
     }
 
     //We might add a resell token function in the future

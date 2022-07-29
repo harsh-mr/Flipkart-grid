@@ -1,7 +1,7 @@
 // import Navbar from "./Navbar";
 import { useState,useEffect } from "react";
-import { uploadFileToIPFS, uploadJSONToIPFS } from "../pinata";
-import NFT_Digital_Warranty from '../NFT_Digital_Warranty.json';
+import { uploadFileToIPFS, uploadJSONToIPFS } from "../../pinata";
+import NFT_Digital_Warranty from '../../NFT_Digital_Warranty.json';
 import { useLocation } from "react-router";
 
 export default function SellNFT () {
@@ -12,7 +12,8 @@ export default function SellNFT () {
     const ethers = require("ethers");
     const [message, updateMessage] = useState('');
     const location = useLocation();
-
+    const [file, setfile] = useState()
+    
 
 
 
@@ -78,22 +79,14 @@ export default function SellNFT () {
 
 
 
-
+    //   var files;
     //This function uploads the NFT image to IPFS
     async function OnChangeFile(e) {
-        var file = e.target.files[0];
+        setfile(e.target.files[0]);
+    //    files = e.target.files[0];
+        console.log(file);
         //check for file extension
-        try {
-            //upload the file to IPFS
-            const response = await uploadFileToIPFS(file);
-            if(response.success === true) {
-                console.log("Uploaded image to Pinata: ", response.pinataURL)
-                setFileURL(response.pinataURL);
-            }
-        }
-        catch(e) {
-            console.log("Error during file upload", e);
-        }
+       
     }
 
     //This function uploads the metadata to IPDS
@@ -123,9 +116,24 @@ export default function SellNFT () {
 
     async function listNFT(e) {
         e.preventDefault();
+        var response;
+        try {
+            //upload the file to IPFS
+             response = await uploadFileToIPFS(file);
+            if(response.success === true) {
+                console.log("Uploaded image to Pinata: ", response.pinataURL)
+                setFileURL(response.pinataURL);
+            }
+        }
+        catch(e) {
+            console.log("Error during file upload", e);
+        }
+
+
 
         //Upload data to IPFS
         try {
+            console.log(fileURL);
             const metadataURL = await uploadMetadataToIPFS();
             //After adding your Hardhat network to your metamask, this code will get providers and signers
             const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -150,7 +158,7 @@ export default function SellNFT () {
             alert("Successfully listed your NFT!");
             updateMessage("");
             updateFormParams({ name: '', description: '', serialno: ''});
-            // window.location.replace("/")
+            window.location.replace("/addnft")
         }
         catch(e) {
             alert( "Upload error"+e )
