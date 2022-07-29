@@ -46,7 +46,6 @@ const Home = () => {
                     timer={false} 
                     multi={true} 
                 />
-
                 <Slide
                     data={products} 
                     title='Suggested Items'

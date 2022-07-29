@@ -18,6 +18,7 @@ export const authenticateSignup = async (user) => {
     }
 }
 
+
 export const getProductById = async (id) => {
     try {
         console.log(1)
