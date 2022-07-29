@@ -13,9 +13,10 @@ export const getProducts = async (request, response) => {
 
 export const getProductById = async (request, response) => {
     try {
-        //console.log('Hie')
+        console.log('Hie')
+        console.log(request.params.id )
         const products = await Product.findOne({ '_id': request.params.id });
-        console.log('products: ', products);
+        //console.log(products)
         response.json(products);
     }catch (error) {
          response.json(error);
@@ -24,8 +25,34 @@ export const getProductById = async (request, response) => {
 
 export const postNFT = async (request, response) => {
     try {
+        console.log(request.body.productID)
+        console.log(request.body.tokenID)
         Product.findOneAndUpdate({productID:request.body.productID},{
             $push:{tokenID:request.body.tokenID}
+        },{
+            new:true
+        }).then(da=>{
+            if(da){
+                console.log(da)
+                response.json({message:"success"})
+            }
+            else{
+                response.json({error:"failed"})
+            }
+        })
+        
+        }
+        //if(Product.findOne({'productID':request.}))
+        
+    catch (error) {
+        response.json(error);
+    }
+}
+
+export const delNFT = async (request, response) => {
+    try {
+        Product.findOneAndUpdate({productID:request.body.productID},{
+            $pull:{tokenID:request.body.tokenID}
         },{
             new:true
         }).then(da=>{

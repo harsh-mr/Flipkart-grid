@@ -14,19 +14,19 @@ import Slide from './Home/Slide';
 
 const Component = styled(Box)`
     padding: 20px 10px;
-    background: #F2F2F2;
-`;
+    background: #F2F2F2;`
+;
 
 const Home = () => {
-    
-    
+
+
     const [products, setproducts] = useState([]);
 
-    
+
 
     useEffect(() => {
         const fetch  = async () => {
-            let {data}  = await axios.get(`http://localhost:8000/products`);
+            let {data}  = await axios.get("http://localhost:8000/products");
             setproducts(data);
             console.log(data);
         }
@@ -46,7 +46,6 @@ const Home = () => {
                     timer={false} 
                     multi={true} 
                 />
-                
                 <Slide
                     data={products} 
                     title='Suggested Items'

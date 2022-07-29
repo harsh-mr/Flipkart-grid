@@ -21,12 +21,16 @@ export const authenticateSignup = async (user) => {
 
 export const getProductById = async (id) => {
     try {
-        let data  = await axios.get(`${url}/product/${id}`);
+        console.log(1)
+        let data  = await axios.get( `${url}/product/${id}`);
+        console.log(data)
         return data.data;
     } catch (error) {
         console.log('Error while getting product by id response', error);
     }
 }
+
+
 
 export  const payUsingPaytm = async (data) => {
     try {
@@ -41,6 +45,14 @@ export const postTokenID = async (data) => {
     try {
         console.log(data);
         return await axios.post(`${url}/postnft`, data)
+    } catch (error) {
+        console.log('error while calling login API: ', error);
+    }
+}
+export const delTokenID = async (data) => {
+    try {
+        console.log(data);
+        return await axios.post(`${url}/delnft`, data)
     } catch (error) {
         console.log('error while calling login API: ', error);
     }
