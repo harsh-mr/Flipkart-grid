@@ -29,8 +29,6 @@ function App() {
               <Route path= '/addproduct' element={<AddProduct />} />
               <Route path= '/product/:id' element={<DetailView />} />
               <Route path= '/myorders' element={<Orders />} />
-              <Route path= '/warranty' element={<Warranty />} />
-
             </Routes>
           </Box>
         </BrowserRouter>
