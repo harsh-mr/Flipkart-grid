@@ -25,7 +25,7 @@ function App() {
               <Route path= '/' element={<Home />} />
               <Route path= '/cart' element={<Cart />} />
               <Route path= '/getWarranties' element={<GetWarranties />} />
-              <Route path= '/getWarranties/:tokenId' element={<DisplayWarranty />} />
+              <Route path= '/getWarranties/:tokenId' element={<Warranty />} />
               <Route path= '/addnft' element={<AddNFT />} />
               <Route path= '/addproduct' element={<AddProduct />} />
               <Route path= '/product/:id' element={<DetailView />} />
