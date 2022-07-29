@@ -70,7 +70,7 @@ const RenderTimer = styled(Box)(({ theme }) => ({
     }
 }));
       
-const MultiSlide = ({ data, timer, title }) => {
+const MultiSlide = ({ data }) => {
     const timerURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
 
     const renderer = ({ hours, minutes, seconds }) => {
@@ -80,13 +80,13 @@ const MultiSlide = ({ data, timer, title }) => {
     return (
         <Component>
             <Deal>
-                <DealText>{title}</DealText>
-                {
-                    timer && <Timer>
+                <DealText>Deal of the day</DealText>
+                
+                     <Timer>
                                 <img src={timerURL} style={{ width: 24 }} alt='time clock' />
                                 <Countdown date={Date.now() + 5.04e+7} renderer={renderer} />
                         </Timer>
-                }
+                
                 <ViewAllButton variant="contained" color="primary">View All</ViewAllButton>
             </Deal>
             <Divider />
@@ -123,11 +123,11 @@ const MultiSlide = ({ data, timer, title }) => {
     )
 }
 
-const Slide = (props) => {
+const Slide = ({data}) => {
     return (
         <>
             {
-                props.multi === true && <MultiSlide {...props} />
+                <MultiSlide data= {data} />
             }
         </>
     )

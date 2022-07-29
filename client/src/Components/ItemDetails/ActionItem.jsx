@@ -31,7 +31,7 @@ const StyledButton = styled(Button)`
 const ActionItem = ({ product }) => {
     const navigate = useNavigate();
    
-        
+        console.log(product);
     const [quantity, setQuantity] = useState(1);
     
 
@@ -39,7 +39,7 @@ const ActionItem = ({ product }) => {
 
     return (
         <LeftContainer>
-            <Image src="https://media.threatpost.com/wp-content/uploads/sites/103/2019/09/26105755/fish-1.jpg" /><br />
+            <Image src={product} /><br />
             <StyledButton  style={{marginRight: 10, background: '#ff9f00'}} variant="contained"><Cart />Add to Cart</StyledButton>
             <StyledButton  style={{background: '#fb641b'}} variant="contained"><Flash /> Buy Now</StyledButton>
         </LeftContainer>

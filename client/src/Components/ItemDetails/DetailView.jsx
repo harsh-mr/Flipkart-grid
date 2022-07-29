@@ -5,7 +5,7 @@ import { styled, Box, Typography, Grid } from '@mui/material';
 import ProductDetail from './ProductDetail';
 import ActionItem from './ActionItem';
 import { useParams } from 'react-router-dom';
-
+import { getProductById } from '../../service/api';
 
 
 
@@ -29,11 +29,24 @@ const RightContainer = styled(Grid)`
     }
 `;
 
-const DetailView = () => {
-    const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png'
-    
-    const { id } = useParams();
 
+
+const DetailView = () => {
+    const { id } = useParams();
+    const [rep,setrep]=useState('');
+    useEffect(()=>{
+        const find  = async ()=>{
+            let ans= await getProductById(id);
+            setrep(ans);
+            // console.log(ans);
+        }
+        find();
+     },[])
+   
+    
+    console.log(rep.expiry);
+    const fassured = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/fa_62673a.png';    
+    
 
 
     return (
@@ -42,7 +55,7 @@ const DetailView = () => {
             
                 <Container container> 
                     <Grid item lg={4} md={4} sm={8} xs={12}>
-                        <ActionItem />
+                        <ActionItem product={rep.product_image} />
                     </Grid>
                     <RightContainer item lg={8} md={8} sm={8} xs={12}>
                         <Typography>title</Typography>
@@ -64,3 +77,24 @@ const DetailView = () => {
 }
 
 export default DetailView;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

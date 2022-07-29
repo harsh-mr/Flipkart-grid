@@ -18,9 +18,11 @@ export const authenticateSignup = async (user) => {
     }
 }
 
+
 export const getProductById = async (id) => {
     try {
-        return await axios.get(`${url}/product/${id}`);
+        let data  = await axios.get(`${url}/product/${id}`);
+        return data.data;
     } catch (error) {
         console.log('Error while getting product by id response', error);
     }
