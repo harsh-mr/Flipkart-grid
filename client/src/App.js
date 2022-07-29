@@ -11,6 +11,7 @@ import Cart from './Components/Cart/Cart';
 import AddNFT from './Components/Add/AddNFT';
 import GetWarranties from './Components/GetWarranties';
 import DisplayWarranty from './Components/DisplayWarranty';
+import AddProduct from './Components/Add/AddProduct';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
               <Route path= '/getWarranties' element={<GetWarranties />} />
               <Route path= '/getWarranties/:tokenId' element={<DisplayWarranty />} />
               <Route path= '/addnft' element={<AddNFT />} />
+              <Route path= '/addproduct' element={<AddProduct />} />
               <Route path= '/product/:id' element={<DetailView />} />
             </Routes>
           </Box>
