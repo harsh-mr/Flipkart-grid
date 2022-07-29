@@ -40,6 +40,8 @@ const StyledButton = styled(Button)`
 `;
 
 const Orders = () => {
+
+    
   return (
     <>
       <Component container>
@@ -50,7 +52,7 @@ const Orders = () => {
             </Typography>
           </Header>
           <BottomWrapper>
-            <StyledButton variant="contained">View Warranty</StyledButton>
+            <StyledButton variant="contained" >View Warranty</StyledButton>
           </BottomWrapper>
         </LeftComponent>
       </Component>

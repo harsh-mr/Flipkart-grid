@@ -3,13 +3,14 @@ import { useState,useEffect } from "react";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../../pinata";
 import NFT_Digital_Warranty from '../../NFT_Digital_Warranty.json';
 import { useLocation } from "react-router";
-import {postNFTdetails} from "../../service/api";
-
+import {postTokenID} from "../../service/api";
+import { useParams } from 'react-router-dom';
 export default function SellNFT () {
+    const {productID}  = useParams();
     const [connected, toggleConnect] = useState(false);
     //const [productID, setproductID] = useState(1);
     const [currAddress, updateAddress] = useState('0x');
-    const [formParams, updateFormParams] = useState({ name: '', description: '', serialno: '',productID: ''});
+    const [formParams, updateFormParams] = useState({ name: '', description: '', serialno: ''});
    // const [data, updateData] = useState({ serialno:''});
     const [fileURL, setFileURL] = useState(null);
     const ethers = require("ethers");
@@ -35,7 +36,7 @@ export default function SellNFT () {
             // updateButton();
             console.log("here");
             getAddress();
-            window.location.replace(location.pathname)
+           // window.location.replace(location.pathname)
           });
     }
     
@@ -69,7 +70,7 @@ export default function SellNFT () {
             return;
 
         const nftJSON = {
-            name, description, serialno, image: fileURL
+            name, description, serialno, image: fileURL ,productID
         }
 
         try {
@@ -123,19 +124,21 @@ export default function SellNFT () {
             //actually create the NFT
 
             const { serialno} = formParams;
-            const { productID} = formParams;
+            //const { productID} = formParams;
             let transaction = await contract.createToken(metadataURL, serialno, { value: '0' })
             await transaction.wait();
                //Pull the deployed contract instance
               //Get current token id
               //let productID=formParams.productID;
             let tokenID = await contract.getCurrentToken();
-            const tokenURI = await contract.tokenURI(tokenID);
             tokenID=tokenID.toNumber();
+            await postTokenID({tokenID,productID})
+            const tokenURI = await contract.tokenURI(tokenID);
+            
            // console.log(serialno,tokenID,tokenURI,productID)
             // updateData({...data,tokenID});
             // updateData({...data,tokenURI});
-             await postNFTdetails({serialno,tokenID,tokenURI,productID});
+             //await postNFTdetails({serialno,tokenID,tokenURI,productID});
             // console.log(productID);
             alert("Successfully listed your NFT!");
             updateMessage("");
@@ -195,10 +198,6 @@ export default function SellNFT () {
                 <div className="mb-6">
                     <label className="" htmlFor="SerialNo">Serial No </label>
                     <input className="" type="text" placeholder="Enter Serial No"  value={formParams.serialno} onChange={(e )=>{ updateFormParams({...formParams, serialno: e.target.value})}}></input>
-                </div>
-                <div className="mb-6">
-                    <label className="" htmlFor="ProductID">Product ID</label>
-                    <input className="" type="text" placeholder="Enter Product ID"  value={formParams.productID} onChange={(e )=>{ updateFormParams({...formParams, productID: e.target.value})}}></input>
                 </div>
                 <div>
                     <label className="" htmlFor="image">Upload Image</label>

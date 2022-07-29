@@ -7,15 +7,19 @@ export default function AddPro () {
     const [formParams, updateFormParams] = useState({ product_name: '', discription: '', price: '',productID: '',expiry:''});
     const[product_image,setproduct_image]=useState("");
     var file;
-
+    const location = useLocation();
      useEffect(()=>{
         if(product_image){
            // console.log(formParams)
             const {product_name,discription,price,productID,expiry}=formParams;
-             postProductDetails({product_name,discription,price,productID,product_image,expiry});
+             postProductDetails({product_name,discription,price,productID,product_image,expiry})
+             .then(
+                window.location.replace(`/addnft/:${productID}`),
+             )
              
         }
     },[product_image])
+
     async function listProduct(e) {
         e.preventDefault();
             const data=new FormData();//Bsically used to bind all the data in one package to transfer , basically an alternative of json form
@@ -46,7 +50,7 @@ return (
         <h3 className="">Upload your Product to the marketplace</h3>
             <div className="">
                 <label className="" htmlFor="name">Product Name</label>
-                <input className="" id="name" type="text" placeholder="Axie#4563" onChange={e => updateFormParams({...formParams, product_name: e.target.value})} value={formParams.name}></input>
+                <input className="" id="name" type="text" placeholder="Enter product name" onChange={e => updateFormParams({...formParams, product_name: e.target.value})} value={formParams.name}></input>
             </div>
            
             <div className="mb-6">
@@ -59,7 +63,7 @@ return (
             </div>
             <div className="mb-6">
                 <label className="" htmlFor="Expiry">Life of Warranty </label>
-                <input className="" type="number" placeholder="Enter life of warranty"  value={formParams.expiry} onChange={(e )=>{ updateFormParams({...formParams, expiry: e.target.value})}}></input>
+                <input className="" type="number" placeholder="in days"  value={formParams.expiry} onChange={(e )=>{ updateFormParams({...formParams, expiry: e.target.value})}}></input>
             </div>
             <div className="mb-6">
                 <label className="" htmlFor="ProductID">Product ID</label>

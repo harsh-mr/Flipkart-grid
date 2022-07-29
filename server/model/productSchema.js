@@ -11,6 +11,9 @@ const productSchema = new mongoose.Schema({
     type:String,
     required:true
    },
+   tokenID:{
+    type:Array
+   },
    //Stores the price of the product
    price:{
     type:Number,
