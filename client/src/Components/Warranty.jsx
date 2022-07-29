@@ -1,5 +1,9 @@
-import React from "react";
+import React,{useState,useEffect} from 'react'
+import {Link} from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+import NFT_Digital_Warranty from '../NFT_Digital_Warranty.json';
 import { Box, Typography, Button, Grid, styled } from "@mui/material";
+import axios from "axios"
 
 const Component = styled(Grid)(({ theme }) => ({
   padding: "30px 135px",
@@ -30,9 +34,139 @@ const StyledButton = styled(Button)`
 `;
 
 const Warranty = () => {
+
+
+
+
+  const {tokenId}  = useParams();
+
+    
+  const [data, setdata] = useState();
+  const [image, setimage] = useState();
+  const [burnt, setburnt] = useState(false);
+
+  var sale  = async () =>{
+      const ethers = require("ethers");
+      
+  
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const addr = await signer.getAddress();
+
+      //Pull the deployed contract instance
+      let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+
+      //create an NFT Token
+      let nft =  await contract.executeSale(tokenId,20,{value:'0'});
+
+  }
+
+
+  var verify = async () => {
+      const ethers = require("ethers");
+      
+  
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const addr = await signer.getAddress();
+
+      //Pull the deployed contract instance
+      let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+
+      //create an NFT Token
+      // let nft =  await contract.executeSale(tokenId,50,{value:'0'});
+      let burn ;
+
+   
+
+
+      try{
+           burn =  await contract.BurnNFT(tokenId,{value:'0'});
+          console.log(burn);
+          setburnt(true);
+          
+          
+      }
+      catch(err){
+          console.log(err);
+      }
+
+      if(!burn){
+          
+          let nft =  await contract.getListedTokenForId(tokenId)
+          const tokenURI = await contract.tokenURI(tokenId);
+          let meta = await axios.get(tokenURI);
+          setimage(meta.data.image);
+          setdata(nft);
+          console.log(meta);
+          console.log(nft);
+
+      }
+
+
+  }
+
+
+
+  var getWarranty = async () => {
+      const ethers = require("ethers");
+      
+  
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const addr = await signer.getAddress();
+
+      //Pull the deployed contract instance
+      let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+
+      //create an NFT Token
+      try{
+          let nft =  await contract.getListedTokenForId(tokenId);
+          if(nft.owner==="0x0000000000000000000000000000000000000000"){
+              setburnt(true);
+          }
+          console.log(nft);
+
+      }
+      catch(e){
+          console.log(e);
+      }
+   
+
+
+
+    
+
+ 
+  }
+
+
+  useEffect(()=>{
+      getWarranty();
+  },[])
+  
+
+  var seconds = Date.now() / 1000;
+
+
   return (
     <>
-      <Component container>
+
+<div>
+
+{!data?<div style={{display:"flex", justifyContent: "center",alignItems: "center",height:"100vh"}}>
+    {burnt?<div>sorry expired</div>:<div>
+    <button style={{fontSize:"40px"}} onClick={sale}>sale</button>
+    <button style={{fontSize:"40px"}} onClick={verify}>check validity</button>
+    </div>}
+    
+
+</div>:
+<div>data fetched
+    <div>
+
+
+    <Component container>
         <LeftComponent item lg={9} md={9} sm={12} xs={12}>
           <Header>
             <Typography style={{ fontWeight: 600, fontSize: 18 }}>
@@ -59,7 +193,7 @@ const Warranty = () => {
               <span
                 style={{ color: "black", fontSize: "16px", fontWeight: "bold" }}
               >
-                YX00MZAD
+                {data.serialNo}
               </span>
             </p>
             <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
@@ -98,7 +232,7 @@ const Warranty = () => {
               <span
                 style={{ color: "black", fontSize: "16px", fontWeight: "bold" }}
               >
-                20/07/2024
+                
               </span>
             </p>
             <p style={{ color: "#8d8d8d", fontSize: "14px", margin: "0" }}>
@@ -106,19 +240,13 @@ const Warranty = () => {
               <span
                 style={{ color: "black", fontSize: "16px", fontWeight: "bold" }}
               >
-                436
+                {(seconds -data.expiry.toNumber())/86400}
               </span>
             </p>
           </div>
           <div>
             <p>
-              This product has a one year limited warranty which includes a
-              warranty upgrade. This product is entitled to parts, labor and
-              on-site/in-home repair service. If an issue cannot be resolved by
-              phone, Lenovo will schedule an appointment and dispatch a
-              certified technician to you. Service is available Monday-Friday
-              (except holidays). In some specific issues it might be required
-              system to be shipped to Lenovo Service Center.
+              {data.description}
             </p>
           </div>
           <div
@@ -128,21 +256,40 @@ const Warranty = () => {
             }}
           >
             <img
-              src="https://img.freepik.com/premium-vector/mutant-ape-yacht-club-nft-artwork-collection-set-unique-bored-monkey-character-nfts-variant_361671-259.jpg?w=2000"
+              src={image}
               style={{ height: "120px", width: "120px" }}
             />
             <p style={{ color: "#8d8d8d", fontSize: "14px", margin: "0" }}>
               Token ID :
               <span
                 style={{ color: "black", fontSize: "16px", fontWeight: "bold" }}
-              >
-                4498415161151
+              >{image}
+                {/* {data.tokenId} */}
               </span>
             </p>
           </div>
         </div>
+        <Link to="/myorders">
         <StyledButton variant="contained">Go Back</StyledButton>
+            </Link>
+        
       </Component>
+
+
+
+
+
+
+
+    </div>
+</div>
+}
+
+
+</div>
+
+
+     
     </>
   );
 };
