@@ -2,6 +2,18 @@ import { useState, useEffect } from "react";
 import NFT_Digital_Warranty from "../../NFT_Digital_Warranty.json";
 import { useLocation } from "react-router";
 import { postProductDetails } from "../../service/api";
+import TextField from "@mui/material/TextField";
+import { Box, Typography, Badge, Button, styled } from "@mui/material";
+
+const StyledButton = styled(Button)`
+  display: flex;
+  margin-left: auto;
+  background: #fb641b;
+  color: #fff;
+  border-radius: 2px;
+  width: 250px;
+  height: 51px;
+`;
 
 export default function AddPro() {
   const [formParams, updateFormParams] = useState({
@@ -13,7 +25,7 @@ export default function AddPro() {
   });
   const [product_image, setproduct_image] = useState("");
   var file;
-
+  const location = useLocation();
   useEffect(() => {
     if (product_image) {
       // console.log(formParams)
@@ -26,9 +38,10 @@ export default function AddPro() {
         productID,
         product_image,
         expiry,
-      });
+      }).then(window.location.replace(`/addnft/:${productID}`));
     }
   }, [product_image]);
+
   async function listProduct(e) {
     e.preventDefault();
     const data = new FormData(); //Bsically used to bind all the data in one package to transfer , basically an alternative of json form
@@ -53,20 +66,17 @@ export default function AddPro() {
     //check for file extension
   }
   return (
-    <div>
-      {/* <Navbar></Navbar> */}
+    <div style={{ margin: "80px auto" }}>
       <div className="" id="nftForm">
         <form className="">
-          <h3 className="">Upload your Product to the marketplace</h3>
-          <div className="">
-            <label className="" htmlFor="name">
-              Product Name
-            </label>
-            <input
-              className=""
-              id="name"
-              type="text"
-              placeholder="Axie#4563"
+          <h3 style={{ margin: "20px 20%" }}>
+            Upload your Product to the marketplace
+          </h3>
+          <div style={{ margin: "20px 30%" }}>
+            <TextField
+              id="outlined-basic"
+              label="Product Name"
+              variant="outlined"
               onChange={(e) =>
                 updateFormParams({
                   ...formParams,
@@ -74,11 +84,38 @@ export default function AddPro() {
                 })
               }
               value={formParams.name}
-            ></input>
+              style={{ width: "400px" }}
+            />
+            {/* <label className="" htmlFor="name">
+              Product Name
+            </label>
+            <input
+              className=""
+              id="name"
+              type="text"
+              placeholder="Enter product name"
+              onChange={(e) =>
+                updateFormParams({
+                  ...formParams,
+                  product_name: e.target.value,
+                })
+              }
+              value={formParams.name}
+            ></input> */}
           </div>
 
-          <div className="mb-6">
-            <label className="" htmlFor="description">
+          <div style={{ margin: "20px 30%" }}>
+            <TextField
+              id="outlined-basic"
+              label="Product Description"
+              variant="outlined"
+              onChange={(e) =>
+                updateFormParams({ ...formParams, discription: e.target.value })
+              }
+              value={formParams.discription}
+              style={{ width: "400px" }}
+            />
+            {/* <label className="" htmlFor="description">
               Product Description
             </label>
             <textarea
@@ -92,10 +129,20 @@ export default function AddPro() {
               onChange={(e) =>
                 updateFormParams({ ...formParams, discription: e.target.value })
               }
-            ></textarea>
+            ></textarea> */}
           </div>
-          <div className="mb-6">
-            <label className="" htmlFor="Price">
+          <div style={{ margin: "20px 30%" }}>
+            <TextField
+              id="outlined-basic"
+              label="Price"
+              variant="outlined"
+              value={formParams.price}
+              onChange={(e) => {
+                updateFormParams({ ...formParams, price: e.target.value });
+              }}
+              style={{ width: "400px" }}
+            />
+            {/* <label className="" htmlFor="Price">
               Price{" "}
             </label>
             <input
@@ -106,24 +153,44 @@ export default function AddPro() {
               onChange={(e) => {
                 updateFormParams({ ...formParams, price: e.target.value });
               }}
-            ></input>
+            ></input> */}
           </div>
-          <div className="mb-6">
-            <label className="" htmlFor="Expiry">
+          <div style={{ margin: "20px 30%" }}>
+            <TextField
+              id="outlined-basic"
+              label="Warranty Life"
+              variant="outlined"
+              value={formParams.expiry}
+              onChange={(e) => {
+                updateFormParams({ ...formParams, expiry: e.target.value });
+              }}
+              style={{ width: "400px" }}
+            />
+            {/* <label className="" htmlFor="Expiry">
               Life of Warranty{" "}
             </label>
             <input
               className=""
               type="number"
-              placeholder="Enter life of warranty"
+              placeholder="in days"
               value={formParams.expiry}
               onChange={(e) => {
                 updateFormParams({ ...formParams, expiry: e.target.value });
               }}
-            ></input>
+            ></input> */}
           </div>
-          <div className="mb-6">
-            <label className="" htmlFor="ProductID">
+          <div style={{ margin: "20px 30%" }}>
+            <TextField
+              id="outlined-basic"
+              label="Product ID"
+              variant="outlined"
+              value={formParams.productID}
+              onChange={(e) => {
+                updateFormParams({ ...formParams, productID: e.target.value });
+              }}
+              style={{ width: "400px" }}
+            />
+            {/* <label className="" htmlFor="ProductID">
               Product ID
             </label>
             <input
@@ -134,18 +201,27 @@ export default function AddPro() {
               onChange={(e) => {
                 updateFormParams({ ...formParams, productID: e.target.value });
               }}
-            ></input>
+            ></input> */}
           </div>
-          <div>
-            <label className="" htmlFor="image">
+          <div style={{ margin: "20px 30%" }}>
+            <Button
+              variant="contained"
+              component="label"
+              onChange={OnChangeFile}
+            >
+              Upload Image
+              <input hidden type="file" />
+            </Button>
+            {/* <label className="" htmlFor="image">
               Upload Image
             </label>
-            <input type={"file"} onChange={OnChangeFile}></input>
+            <input type={"file"} onChange={OnChangeFile}></input> */}
           </div>
-          <br></br>
-          <button onClick={listProduct} className="">
-            Upload Product
-          </button>
+          <div>
+            <StyledButton onClick={listProduct} style={{ margin: "20px 30%" }}>
+              Upload Product
+            </StyledButton>
+          </div>
         </form>
       </div>
     </div>

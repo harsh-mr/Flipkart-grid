@@ -111,7 +111,10 @@ const CustomButtons = () => {
         }}
       >
         <MenuItem onClick={handleClose}>
-          <Link to="/addnft" style={{ textDecoration: "none", color: "black" }}>
+          <Link
+            to="/addnft/:productID"
+            style={{ textDecoration: "none", color: "black" }}
+          >
             Add NFT
           </Link>
         </MenuItem>

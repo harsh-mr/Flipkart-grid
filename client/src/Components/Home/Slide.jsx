@@ -107,6 +107,7 @@ const MultiSlide = ({ data, timer, title }) => {
             >
                 {
                     data.map(temp => (
+                        temp.tokenID.length && (
                         <Link to={`product/${temp._id}`} style={{textDecoration: 'none'}}>
                             <Box textAlign="center" style={{ padding: '25px 15px' }}>
                                 <Image src={temp.product_image} />
@@ -115,7 +116,7 @@ const MultiSlide = ({ data, timer, title }) => {
                                 <Text style={{ color: '#212121', opacity: '.6' }}>{temp.discription}</Text>
                             </Box>
                         </Link>
-                    ))
+                      )   ))
                 }
             </Carousel>
         </Component>
