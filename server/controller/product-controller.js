@@ -51,12 +51,31 @@ export const postNFT = async (request, response) => {
 
 export const delNFT = async (request, response) => {
     try {
+         console.log(request.body.productID)
+         console.log(request.body)
         Product.findOneAndUpdate({productID:request.body.productID},{
             $pull:{tokenID:request.body.tokenID}
         },{
             new:true
         }).then(da=>{
             if(da){
+//                 const sgMail = require('@sendgrid/mail')
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+// const msg = {
+//   to: 'shreyanushka02@gmail.com', // Change to your recipient
+//   from: 'harshme78@gmail.com', // Change to your verified sender
+//   subject: 'Sending with SendGrid is Fun',
+//   text: 'and easy to do anywhere, even with Node.js',
+//   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+// }
+// sgMail
+//   .send(msg)
+//   .then(() => {
+//     console.log('Email sent')
+//   })
+//   .catch((error) => {
+//     console.error(error)
+//   })
                 response.json({message:"success"})
             }
             else{
