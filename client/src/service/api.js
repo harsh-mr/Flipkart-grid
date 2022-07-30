@@ -29,6 +29,16 @@ export const getProductById = async (id) => {
         console.log('Error while getting product by id response', error);
     }
 }
+export const getRepairLog = async (id) => {
+    try {
+        console.log(1)
+        let data  = await axios.get( `${url}/repairlog/${id}`);
+        console.log(data)
+        return data.data;
+    } catch (error) {
+        console.log('Error while getting product by id response', error);
+    }
+}
 
 
 
@@ -62,6 +72,22 @@ export const postProductDetails = async (data) => {
     try {
         console.log(data);
         return await axios.post(`${url}/postproduct`, data)
+    } catch (error) {
+        console.log('error while calling login API: ', error);
+    }
+}
+export const repairTokenID = async (data) => {
+    try {
+        console.log(data);
+        return await axios.post(`${url}/repairtokenid`, data)
+    } catch (error) {
+        console.log('error while calling login API: ', error);
+    }
+}
+export const repairDiscription = async (data) => {
+    try {
+        console.log(data);
+        return await axios.post(`${url}/repairdiscription`, data)
     } catch (error) {
         console.log('error while calling login API: ', error);
     }

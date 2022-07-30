@@ -12,23 +12,17 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://flipkart.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import { useState } from 'react';
+import { repairTokenID, repairDiscription } from '../service/api';
 
 const theme = createTheme();
 
 export default function SignUp() {
+  const [formParams, updateFormParams] = useState({
+    tokenID: "",
+    date: "",
+    discription: "",
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -38,6 +32,16 @@ export default function SignUp() {
     });
   };
 
+  const repair=async()=>{
+     await repairTokenID(formParams).then(
+      async(da)=>{
+        await repairDiscription(formParams).then(das=>{
+          window.alert("Repair History successfully updated!")
+        })
+       
+      }
+     )
+  }
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -50,7 +54,7 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'primary' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -58,8 +62,7 @@ export default function SignUp() {
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              
-              <Grid item xs={12} sm={12}>
+            <Grid item xs={12} sm={12}>
                 <TextField
                   required
                   fullWidth
@@ -67,6 +70,10 @@ export default function SignUp() {
                   label="TokenID "
                   name="TokenID"
                   autoComplete="family-name"
+                  value={formParams.tokenID}
+                  onChange={(e) => {
+                    updateFormParams({ ...formParams, tokenID: e.target.value });
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -74,10 +81,14 @@ export default function SignUp() {
                   required
                   fullWidth
                   id="Time"
-                  type="number"
-                  label="Time needed"
-                  name="Time required to repair"
+                  type="date"
+                  label=""
+                  name="Date when repaired"
                   autoComplete="Time"
+                  value={formParams.date}
+                  onChange={(e) => {
+                    updateFormParams({ ...formParams, date: e.target.value });
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -88,9 +99,12 @@ export default function SignUp() {
                   label="Problem Report"
                   name="Specify problem and solution"
                   autoComplete="Time"
+                  value={formParams.discription}
+                  onChange={(e) => {
+                    updateFormParams({ ...formParams, discription: e.target.value });
+                  }}
                 />
               </Grid>
-
              
               
               <Grid item xs={12}>
@@ -105,13 +119,14 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              onClick={repair}
             >
               Add Repair
             </Button>
             
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+       
       </Container>
     </ThemeProvider>
   );

@@ -28,6 +28,17 @@ export const getProductById = async (request, response) => {
          response.json(error);
     }
 }
+export const getRepairLog = async (request, response) => {
+    try {
+        console.log('Hie')
+        console.log(request.params.id )
+        const products = await Repairs.findOne({ tokenID: request.params.id });
+        //console.log(products)
+        response.json(products);
+    }catch (error) {
+         response.json(error);
+    }
+}
 
 export const postNFT = async (request, response) => {
     try {
@@ -38,13 +49,12 @@ export const postNFT = async (request, response) => {
         },{
             new:true
         }).then(da=>{
-            if(da){
-                console.log(da)
-                response.json({message:"success"})
-            }
-            else{
-                response.json({error:"failed"})
-            }
+            const repair=new Repairs({
+                tokenID:request.body.tokenID,
+                date:{},
+                discription:{}
+            })
+            repair.save();
         })
         
         }
@@ -69,7 +79,8 @@ export const delNFT = async (request, response) => {
                 then(res=>{
                  date=res.repair_date,
                  reason=res.repair_reason
-                })
+                console.log(date);
+                console.log(reason);
 
 const msg = {
   to: email, // Change to your recipient
@@ -83,24 +94,11 @@ const msg = {
          Details of your nft :
          1. NFT Name: ${nftname}
          2. NFT discription :${nftdisc}
-         3. NFT Image : ${url}
-         
-         Repair Log :`,
-   html:      `${
-            date.map((val,index)=>{
-                const ans=reason[index];
-                return(
-                    `<div>
-                        <h3>{index+1}. {val}</h3>
-                        <p>{ans}</p>
-                    </div>`
-                )
-            })
-         }`
+         3. NFT Image : ${url}`
          ,
 }
 sgMail
-  .send(msg)
+  .send(msg)})
   .then(() => {
     console.log('Email sent')
   })
@@ -158,16 +156,38 @@ export const postProduct = async (request, response) => {
     }
 }
 
-export const repair = async (request, response) => {
+export const repairTokenID = async (request, response) => {
     try {
-       const {tokenID,date,discription}=request.body;
+       const {tokenID,date}=request.body;
+       const data=date.toString().slice(0,15)
        Repairs.findOneAndUpdate({tokenID:tokenID},{
-        $push:{repair_date:date},
-        $push:{repair_reason:discription}
+         $push:{repair_date:data},
     },{
         new:true
     })
-        .then(da=>{
+        
+    .then(da=>{
+            if(da){
+                response.json({message:"success"})
+            }
+            else{
+                response.json({error:"failed"})
+            }
+        })}
+    catch (error) {
+        response.json(error);
+    }
+}
+export const repairDiscription = async (request, response) => {
+    try {
+       const {tokenID,discription}=request.body;
+       Repairs.findOneAndUpdate({tokenID:tokenID},{
+         $push:{repair_reason:discription},
+    },{
+        new:true
+    })
+        
+    .then(da=>{
             if(da){
                 response.json({message:"success"})
             }

@@ -15,6 +15,7 @@ import AddProduct from './Components/Add/AddProduct';
 import Orders from './Components/Orders';
 import Warranty from './Components/Warranty';
 import Repair from './Components/Repair';
+import RepairLog from './Components/RepairLog';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
               <Route path= '/product/:id' element={<DetailView />} />
               <Route path= '/myorders' element={<Orders />} />
               <Route path= '/repair' element={<Repair />} />
+              <Route path= '/repairlog' element={<RepairLog />} />
            
             </Routes>
           </Box>
