@@ -6,6 +6,9 @@ import { ShoppingCart as Cart, FlashOn as Flash } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import NFT_Digital_Warranty from '../../NFT_Digital_Warranty.json';
 import {delTokenID} from '../../service/api';
+import TextField from "@mui/material/TextField";
+import axios from "axios"
+
 
 const LeftContainer = styled(Box)(({ theme }) => ({
     minWidth: '40%',
@@ -32,9 +35,13 @@ const ActionItem = ({ product}) => {
     const navigate = useNavigate();
    
         console.log(product);
-    const [quantity, setQuantity] = useState(1);
+    const [emails, setEmail] = useState({email:""});
     
     var sale  = async () =>{
+
+        if(!emails.email){
+            return  window.alert("Enter the email id")
+        }
         const ethers = require("ethers");
         
     
@@ -44,11 +51,15 @@ const ActionItem = ({ product}) => {
   
         //Pull the deployed contract instance
         let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
-  
+          
         //create an NFT Token
           await contract.executeSale(product.id,product.expiry,{value:'0'}).then(
             async(da)=>{
-               await delTokenID({productID:product.productID,tokenID:product.id});
+                console.log(da)
+                const tokenURI = await contract.tokenURI(product.id);
+          let meta = await axios.get(tokenURI);
+          //console.log(meta)
+               await delTokenID({productID:product.productID,tokenID:product.id,email:emails.email,url:meta.data.image,nftname:meta.data.name,nftdisc:meta.data.description,serialno:meta.data.serialno,time:(new Date().toISOString().slice(0, 10))});
                
             }
         )
@@ -62,6 +73,18 @@ const ActionItem = ({ product}) => {
             <Image src={product.image} /><br />
             <StyledButton  style={{marginRight: 10, background: '#ff9f00'}} variant="contained"><Cart />Add to Cart</StyledButton>
             <StyledButton  style={{background: '#fb641b'}} variant="contained" onClick={sale}><Flash /> Buy Now</StyledButton>
+
+            <TextField
+              id="outlined-basic"
+              label="Enter Email"
+              variant="outlined"
+              onChange={(e) =>
+                setEmail({ ...emails, email: e.target.value })
+              }
+              value={emails.email}
+              
+              style={{ width: "280px", marginTop: "20px" }}
+            />
         </LeftContainer>
     )
 }
