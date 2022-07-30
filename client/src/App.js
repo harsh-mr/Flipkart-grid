@@ -14,7 +14,8 @@ import AddNFT from './Components/Add/AddNFT';
 import AddProduct from './Components/Add/AddProduct';
 import Orders from './Components/Orders';
 import Warranty from './Components/Warranty';
-import DummyWarranty from './Components/DummyWarranty';
+import Repair from './Components/Repair';
+
 
 function App() {
   return (
@@ -31,7 +32,8 @@ function App() {
               <Route path= '/addproduct' element={<AddProduct />} />
               <Route path= '/product/:id' element={<DetailView />} />
               <Route path= '/myorders' element={<Orders />} />
-              <Route path= '/dummywarranty' element={<DummyWarranty />} />
+              <Route path= '/repair' element={<Repair />} />
+           
             </Routes>
           </Box>
         </BrowserRouter>

@@ -135,6 +135,7 @@ export default function AddPro() {
             <TextField
               id="outlined-basic"
               label="Price"
+              type="number"
               variant="outlined"
               value={formParams.price}
               onChange={(e) => {
@@ -159,6 +160,7 @@ export default function AddPro() {
           <div style={{ margin: "20px 30%" }}>
             <TextField
               id="outlined-basic"
+              type="number"
               label="Warranty Life"
               variant="outlined"
               value={formParams.expiry}
@@ -185,6 +187,7 @@ export default function AddPro() {
             <TextField
               id="outlined-basic"
               label="Product ID"
+              type="number"
               variant="outlined"
               value={formParams.productID}
               onChange={(e) => {

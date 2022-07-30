@@ -201,8 +201,8 @@ const Warranty = () => {
                   <Component container>
                     <div
                       style={{
-                        height: "60vh",
-                        width: "65%",
+                        height: "70vh",
+                        width: "85%",
                         margin: "30px auto",
                         display: "flex",
                         background: "#f8fcff",
@@ -321,7 +321,7 @@ const Warranty = () => {
                         </div>
 
                         <div>
-                          <div style={{ margin: "10px" }}>
+                          <div style={{ margin: "10px" ,  overflowWrap: "break-word"}}>
                             {meta.description}
                           </div>
                         </div>
