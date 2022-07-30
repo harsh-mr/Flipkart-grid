@@ -291,7 +291,7 @@ export default function SellNFT() {
             </label>
             <input type={"file"} onChange={OnChangeFile}></input> */}
           </div>
-          <div className="">{message}</div>
+          <div>{message}</div>
           <StyledButton onClick={listNFT} style={{ margin: "20px 30%" }}>
             Upload Product
           </StyledButton>
