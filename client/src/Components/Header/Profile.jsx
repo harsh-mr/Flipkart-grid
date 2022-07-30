@@ -14,6 +14,7 @@ const Logout = styled(Typography)`
 `;
 
 const Profile = ({ account, setAccount }) => {
+    
     const [open, setOpen] = useState(false);
     
     const handleClick = (event) => {

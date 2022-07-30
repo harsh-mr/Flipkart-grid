@@ -78,8 +78,11 @@ const Warranty = () => {
   const { tokenId } = useParams();
 
   const [data, setdata] = useState();
-  const [image, setimage] = useState();
+  const [meta, setmeta] = useState();
   const [burnt, setburnt] = useState(false);
+  const cleanDate = (d) => {
+    return new Date(+d.replace(/\/Date\((\d+)\)\//, "$1"));
+  };
 
   var sale = async () => {
     const ethers = require("ethers");
@@ -129,7 +132,7 @@ const Warranty = () => {
       let nft = await contract.getListedTokenForId(tokenId);
       const tokenURI = await contract.tokenURI(tokenId);
       let meta = await axios.get(tokenURI);
-      setimage(meta.data.image);
+      setmeta(meta.data);
       setdata(nft);
       console.log(meta);
       console.log(nft);
@@ -175,152 +178,178 @@ const Warranty = () => {
   return (
     <>
       <div>
-        {/* <div>hello world</div> */}
         {data && (
           <div>
-            <div
-              style={{
-                border: "3px solid black",
-                height: "60vh",
-                width: "65%",
-                margin: "30px auto",
-                padding: "20px",
-                background: "#f8f8f8",
-              }}
-            >
-              <h2 style={{ margin: "0 auto", textAlign: "center" }}>
-                Certificate of Warranty
-              </h2>
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
-                  Serial Number:{" "}
-                  <span
-                    style={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {data.serialNo}
-                  </span>
-                </p>
-                <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
-                  Warranty Status :{" "}
-                  <span
-                    style={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    In warranty
-                  </span>
-                </p>
-                <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
-                  Type :{" "}
-                  <span
-                    style={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    On Site
-                  </span>
-                </p>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                }}
-              >
-                <p
-                  style={{
-                    color: "#8d8d8d",
-                    fontSize: "14px",
-                    margin: "0",
-                  }}
-                >
-                  Start Date:{" "}
-                  <span
-                    style={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    20/06/2022
-                  </span>
-                </p>
-                <p
-                  style={{
-                    color: "#8d8d8d",
-                    fontSize: "14px",
-                    margin: "0",
-                  }}
-                >
-                  End Date :{" "}
-                  <span
-                    style={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  ></span>
-                </p>
-                <p
-                  style={{
-                    color: "#8d8d8d",
-                    fontSize: "14px",
-                    margin: "0",
-                  }}
-                >
-                  Days Remaining :
-                  <span
-                    style={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {(seconds - data.expiry.toNumber()) / 86400}
-                  </span>
-                </p>
-              </div>
+            <div>
               <div>
-                <p>{data.description}</p>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                }}
-              >
-                <img src={image} style={{ height: "120px", width: "120px" }} />
-                <p
-                  style={{
-                    color: "#8d8d8d",
-                    fontSize: "14px",
-                    margin: "0",
-                  }}
-                >
-                  Token ID :
-                  <span
+                <Component container>
+                  <LeftComponent item lg={9} md={9} sm={12} xs={12}>
+                    <Header>
+                      <Typography style={{ fontWeight: 600, fontSize: 18 }}>
+                        Warranty and Services
+                      </Typography>
+                    </Header>
+                  </LeftComponent>
+                  <div
                     style={{
-                      color: "black",
-                      fontSize: "16px",
-                      fontWeight: "bold",
+                      border: "3px solid black",
+                      height: "60vh",
+                      width: "65%",
+                      margin: "30px auto",
+                      background: "#f8f8f8",
+                      display: "flex",
                     }}
                   >
-                    {image}
-                  </span>
-                </p>
+                    <div
+                      className="left-section"
+                      style={{ width: "50%", borderRight: "1px solid black" }}
+                    >
+                      <img
+                        src={meta.image}
+                        style={{ height: "100%", width: "100%" }}
+                      />
+                    </div>
+                    <div className="right-section" style={{ width: "50%" }}>
+                      <h2 style={{ margin: "0 auto", textAlign: "center" }}>
+                        Certificate of Warranty
+                      </h2>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          margin: "10px",
+                        }}
+                      >
+                        <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
+                          Serial Number:{" "}
+                          <span
+                            style={{
+                              color: "black",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {data.serialNo}
+                          </span>
+                        </p>
+                        <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
+                          Status :{" "}
+                          <span
+                            style={{
+                              color: "black",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            In warranty
+                          </span>
+                        </p>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          margin: "10px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "#8d8d8d",
+                            fontSize: "14px",
+                            margin: "0",
+                          }}
+                        >
+                          Start Date:{" "}
+                          <span
+                            style={{
+                              color: "black",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            20/06/2022
+                          </span>
+                        </p>
+                        <p
+                          style={{
+                            color: "#8d8d8d",
+                            fontSize: "14px",
+                            margin: "0",
+                          }}
+                        >
+                          End Date :{" "}
+                          <span
+                            style={{
+                              color: "black",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          ></span>
+                        </p>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          margin: "10px",
+                        }}
+                      >
+                        <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
+                          Type :{" "}
+                          <span
+                            style={{
+                              color: "black",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            On Site
+                          </span>
+                        </p>
+                        <p
+                          style={{
+                            color: "#8d8d8d",
+                            fontSize: "14px",
+                          }}
+                        >
+                          Days Remaining :
+                          <span
+                            style={{
+                              color: "black",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {new Date(data.expiry.toNumber() * 1000)
+                              .toISOString()
+                              .slice(0, 10)}
+                          </span>
+                        </p>
+                      </div>
+                      <div>
+                        <div style={{ margin: "10px" }}>{meta.description}</div>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                        }}
+                      ></div>
+                      <div style={{ margin: "auto 100px 0 80px" }}>
+                        <Link to="/myorders">
+                          <StyledButton
+                            variant="contained"
+                            style={{ textDecoration: "none" }}
+                          >
+                            Go Back
+                          </StyledButton>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </Component>
               </div>
             </div>
-            <Link to="/myorders">
-              <StyledButton variant="contained">Go Back</StyledButton>
-            </Link>
           </div>
         )}
         {!data && (
@@ -352,10 +381,6 @@ const Warranty = () => {
                   </StyledButton>
                 </div>
               )}
-
-              {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-              </Typography> */}
             </Box>
           </Modal>
         )}

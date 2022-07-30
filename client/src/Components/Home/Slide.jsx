@@ -112,8 +112,9 @@ const MultiSlide = ({ data }) => {
                             <Box textAlign="center" style={{ padding: '25px 15px' }}>
                                 <Image src={temp.product_image} />
                                 <Text style={{ fontWeight: 600, color: '#212121' }}>{temp.name}</Text>
-                                <Text style={{ color: 'green' }}>{temp.price}</Text>
-                                <Text style={{ color: '#212121', opacity: '.6' }}>{temp.discription}</Text>
+                                <Text style={{ color: 'grey' }}>{temp.product_name}</Text>
+                                <Text style={{ color: 'green' }}>₹ {temp.price}</Text>
+                                
                             </Box>
                         </Link>
                       )   ))
