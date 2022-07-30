@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { Box, Typography, Badge, Button, styled } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
@@ -49,8 +49,9 @@ const LoginButton = styled(Button)(({ theme }) => ({
   fontWeight: 600,
   borderRadius: 2,
   padding: "5px 30px",
-  height: 36,
+  height: 40,
   boxShadow: "none",
+  margin: "0",
   [theme.breakpoints.down("sm")]: {
     background: "#2874f0",
     color: "#FFFFFF",
@@ -58,6 +59,34 @@ const LoginButton = styled(Button)(({ theme }) => ({
 }));
 
 const CustomButtons = () => {
+  const [user, setuser] = useState();
+  async function getAddress() {
+    const ethers = require("ethers");
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const addr = await signer.getAddress();
+    setuser(addr);
+  }
+
+  async function connectWebsite() {
+    const chainId = await window.ethereum.request({ method: "eth_chainId" });
+    if (chainId !== "0x5") {
+      //alert('Incorrect network! Switch your metamask network to Rinkeby');
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x5" }],
+      });
+    }
+    await window.ethereum
+      .request({ method: "eth_requestAccounts" })
+      .then(() => {
+        // updateButton();
+        console.log("here");
+        getAddress();
+        // window.location.replace(location.pathname)
+      });
+  }
+
   let add = "/checkProductID";
   const [open, setOpen] = useState(false);
   const { account, setAccount } = useContext(LoginContext);
@@ -78,20 +107,12 @@ const CustomButtons = () => {
     setAnchorEl(null);
   };
 
+  useEffect(() => {
+    getAddress();
+  }, []);
+
   return (
     <Wrapper>
-      {account ? (
-        <Profile account={account} setAccount={setAccount} />
-      ) : (
-        <LoginButton variant="contained" onClick={() => openDialog()}>
-          Login
-        </LoginButton>
-      )}
-      {/* <LoginButton>
-        <Link to={add} style={{ textDecoration: "none", fontSize: "14px" }}>
-          Add Products
-        </Link>
-      </LoginButton> */}
       <LoginButton
         id="basic-button"
         aria-controls={Open ? "basic-menu" : undefined}
@@ -101,6 +122,7 @@ const CustomButtons = () => {
       >
         For Seller
       </LoginButton>
+
       <Menu
         id="basic-menu"
         anchorEl={anchorEl}
@@ -128,6 +150,9 @@ const CustomButtons = () => {
         </MenuItem>
       </Menu>
       {/* <Typography style={{ marginTop: 3 }}>More</Typography> */}
+      <LoginButton variant="contained" onClick={() => connectWebsite()}>
+        {user ? user : "Connect"}
+      </LoginButton>
 
       <Container to="/cart">
         <Badge badgeContent={cartItems?.length} color="secondary">

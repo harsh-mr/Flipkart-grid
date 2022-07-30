@@ -1,9 +1,39 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useParams } from 'react-router-dom';
-import NFT_Digital_Warranty from '../NFT_Digital_Warranty.json';
-import { Box, Typography, Button, Grid, styled } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import NFT_Digital_Warranty from "../NFT_Digital_Warranty.json";
+import {
+  Box,
+  Card,
+  Typography,
+  Button,
+  Modal,
+  Grid,
+  styled,
+} from "@mui/material";
 import axios from "axios";
+import { Filter } from "@mui/icons-material";
+
+const SmallComponent = styled(Card)`
+  border-top: 1px solid #f0f0f0;
+  border-radius: 0px;
+  display: flex;
+`;
+
+const SmallLeftComponent = styled(Box)`
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Description = styled(Typography)`
+  font-size: 18px;
+  font-weight: 600;
+`;
+
+const SerialNo = styled(Typography)`
+  color: #878787;
+`;
 
 const Component = styled(Grid)(({ theme }) => ({
   padding: "30px 135px",
@@ -33,15 +63,35 @@ const StyledButton = styled(Button)`
   height: 51px;
 `;
 
+const StyledButton2 = styled(Button)`
+  background: #fb641b;
+  color: #fff;
+  border-radius: 2px;
+  width: 150px;
+  height: 51px;
+`;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 600,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+
 const Warranty = () => {
-
-
   const { tokenId } = useParams();
-
 
   const [data, setdata] = useState();
   const [meta, setmeta] = useState();
   const [burnt, setburnt] = useState(false);
+  const cleanDate = (d) => {
+    return new Date(+d.replace(/\/Date\((\d+)\)\//, "$1"));
+  };
 
   var sale = async () => {
     const ethers = require("ethers");
@@ -79,36 +129,24 @@ const Warranty = () => {
     // let nft =  await contract.executeSale(tokenId,50,{value:'0'});
     let burn;
 
-
-
-
     try {
-      burn = await contract.BurnNFT(tokenId, { value: '0' });
+      burn = await contract.BurnNFT(tokenId, { value: "0" });
       console.log(burn);
       setburnt(true);
-
-
-    }
-    catch (err) {
+    } catch (err) {
       console.log(err);
     }
 
     if (!burn) {
-
-      let nft = await contract.getListedTokenForId(tokenId)
+      let nft = await contract.getListedTokenForId(tokenId);
       const tokenURI = await contract.tokenURI(tokenId);
       let meta = await axios.get(tokenURI);
       setmeta(meta.data);
       setdata(nft);
       console.log(meta);
       console.log(nft);
-
     }
-
-
-  }
-
-
+  };
 
   var getWarranty = async () => {
     const ethers = require("ethers");
@@ -118,7 +156,11 @@ const Warranty = () => {
     const addr = await signer.getAddress();
 
     //Pull the deployed contract instance
-    let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+    let contract = new ethers.Contract(
+      NFT_Digital_Warranty.address,
+      NFT_Digital_Warranty.abi,
+      signer
+    );
 
     //create an NFT Token
     try {
@@ -138,214 +180,234 @@ const Warranty = () => {
 
   var seconds = Date.now() / 1000;
 
+  const [open, setOpen] = React.useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <>
-
-      <div>
-
-        {!data ? <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-          {burnt ? <div>sorry expired</div> : <div>
-            <button style={{ fontSize: "40px" }} onClick={sale}>sale</button>
-            <button style={{ fontSize: "40px" }} onClick={verify}>check validity</button>
-          </div>}
-
-
-        </div> :
-          <div>
-
+      <div
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80)",
+          height: "93vh",
+        }}
+      >
+        <div style={{ backdropFilter: "blur(30px)", paddingTop: "50px" }}>
+          {data && (
             <div>
-
               <div>
-
-                <Component container>
-                  <LeftComponent item lg={9} md={9} sm={12} xs={12}>
-                    <Header>
-                      <Typography style={{ fontWeight: 600, fontSize: 18 }}>
-                        Warranty and Services
-                      </Typography>
-                    </Header>
-                  </LeftComponent>
-                  <div
-                    style={{
-                      border: "3px solid black",
-                      height: "60vh",
-                      width: "65%",
-                      margin: "30px auto",
-                      background: "#f8f8f8",
-                      display: "flex",
-                    }}
-                  >
+                <div>
+                  <Component container>
                     <div
-                      className="left-section"
-                      style={{ width: "50%", borderRight: "1px solid black" }}
+                      style={{
+                        height: "60vh",
+                        width: "65%",
+                        margin: "30px auto",
+                        display: "flex",
+                        background: "#f8fcff",
+                        borderRadius: "15px",
+                        boxShadow:
+                          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+                      }}
                     >
-                      <img
-                        src={meta.image}
-                        style={{ height: '100%', width: '100%' }}
-                      />
-                    </div>
-                    <div className="right-section" style={{ width: "50%" }}>
-                      <h2 style={{ margin: "0 auto", textAlign: "center" }}>
-                        Certificate of Warranty
-                      </h2>
+                      <div className="left-section" style={{ width: "50%" }}>
+                        <img
+                          src={meta.image}
+                          style={{
+                            height: "100%",
+                            width: "100%",
+                            borderRadius: "15px",
+                          }}
+                        />
+                      </div>
                       <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          margin: "10px",
-                        }}
+                        className="right-section"
+                        style={{ width: "50%", padding: "15px" }}
                       >
-                        <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
-                          Serial Number:{" "}
-                          <span
+                        <h1
+                          style={{
+                            margin: "10px auto",
+                            textAlign: "center",
+                            fontSize: "26px",
+                          }}
+                        >
+                          Certificate of Warranty
+                        </h1>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            margin: "0px",
+                          }}
+                        >
+                          <p
+                            style={{
+                              color: "#8d8d8d",
+                              fontSize: "18px",
+                              margin: "5px",
+                            }}
+                          >
+                            Serial Number{" "}
+                          </p>
+                          <p
                             style={{
                               color: "black",
-                              fontSize: "16px",
+                              fontSize: "18px",
                               fontWeight: "bold",
+                              margin: "5px",
                             }}
                           >
                             {data.serialNo}
-                          </span>
-                        </p>
-                        <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
-                          Status :{" "}
-                          <span
-                            style={{
-                              color: "black",
-                              fontSize: "16px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            In warranty
-                          </span>
-                        </p>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          margin: "10px",
-                        }}
-                      >
-                        <p
+                          </p>
+                        </div>
+                        <div
                           style={{
-                            color: "#8d8d8d",
-                            fontSize: "14px",
-                            margin: "0",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            margin: "0px",
                           }}
                         >
-                          Start Date:{" "}
-                          <span
+                          <p
                             style={{
-                              color: "black",
-                              fontSize: "16px",
-                              fontWeight: "bold",
+                              color: "#8d8d8d",
+                              fontSize: "18px",
+                              margin: "5px",
                             }}
                           >
-                            20/06/2022
-                          </span>
-                        </p>
-                        <p
+                            Start Date{" "}
+                          </p>
+                          <p
+                            style={{
+                              color: "black",
+                              fontSize: "18px",
+                              fontWeight: "bold",
+                              margin: "5px",
+                            }}
+                          >
+                            {new Date(data.created.toNumber() * 1000)
+                              .toISOString()
+                              .slice(0, 10)}
+                          </p>
+                        </div>
+                        <div
                           style={{
-                            color: "#8d8d8d",
-                            fontSize: "14px",
-                            margin: "0",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            margin: "0px",
                           }}
                         >
-                          End Date :{" "}
-                          <span
+                          <p
                             style={{
-                              color: "black",
-                              fontSize: "16px",
-                              fontWeight: "bold",
-                            }}
-                          ></span>
-                        </p>
-                      </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          margin: "10px",
-                        }}
-                      >
-                        <p style={{ color: "#8d8d8d", fontSize: "14px" }}>
-                          Type :{" "}
-                          <span
-                            style={{
-                              color: "black",
-                              fontSize: "16px",
-                              fontWeight: "bold",
+                              color: "#8d8d8d",
+                              fontSize: "18px",
+                              margin: "5px",
                             }}
                           >
-                            On Site
-                          </span>
-                        </p>
-                        <p
+                            End Date{" "}
+                          </p>
+                          <p
+                            style={{
+                              color: "black",
+                              fontSize: "18px",
+                              fontWeight: "bold",
+                              margin: "5px",
+                            }}
+                          >
+                            {new Date(data.expiry.toNumber() * 1000)
+                              .toISOString()
+                              .slice(0, 10)}
+                          </p>
+                        </div>
+
+                        <div>
+                          <div style={{ margin: "10px" }}>
+                            {meta.description}
+                          </div>
+                        </div>
+                        <div
                           style={{
-                            color: "#8d8d8d",
-                            fontSize: "14px",
+                            display: "flex",
+                            justifyContent: "space-evenly",
+                          }}
+                        ></div>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginTop: "60px",
                           }}
                         >
-                          Days Remaining :
-                          <span
-                            style={{
-                              color: "black",
-                              fontSize: "16px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            {(seconds - data.expiry.toNumber()) / 86400}
-                          </span>
-                        </p>
-                      </div>
-                      <div>
-                        <div style={{ margin: "10px" }}>
-                        {meta.description} 
-                       
+                          <Link to="/myorders">
+                            <StyledButton2
+                              variant="contained"
+                              style={{ textDecoration: "none", color: "white" }}
+                            >
+                              Go Back
+                            </StyledButton2>
+                          </Link>
                         </div>
                       </div>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-evenly",
-                        }}
-                      >
-                       
-                      </div>
-                      <div style={{ margin: "auto 100px 0 80px" }}>
-                        <Link to="/myorders">
-                          <StyledButton
-                            variant="contained"
-                            style={{ textDecoration: "none" }}
-                          >
-                            Go Back
-                          </StyledButton>
-                        </Link>
-                      </div>
                     </div>
-                  </div>
-                </Component>
+                  </Component>
+                </div>
               </div>
-
-
-
-
-
             </div>
-
-
-
-          </div>
-        }
-
-
+          )}
+          {!data && (
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                {burnt ? (
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Sorry, Validity Expired.
+                  </Typography>
+                ) : (
+                  <div>
+                    <Typography
+                      id="modal-modal-title"
+                      variant="h6"
+                      component="h2"
+                    >
+                      Check the validity of your warranty.
+                    </Typography>
+                    <StyledButton
+                      onClick={verify}
+                      style={{ marginTop: "30px", marginLeft: "280px" }}
+                    >
+                      Check Validity
+                    </StyledButton>
+                  </div>
+                )}
+              </Box>
+            </Modal>
+          )}
+        </div>
       </div>
-
-
-
     </>
   );
 };
 
 export default Warranty;
+
+// style={{
+//   display: "flex",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   height: "100vh",
+// }}
+
+// style={{
+//   background: "#f8fcff",
+//   borderRadius: "4px",
+//   boxShadow:
+//     "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
+// }}
