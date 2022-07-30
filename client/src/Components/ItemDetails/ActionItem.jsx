@@ -48,7 +48,8 @@ const ActionItem = ({ product}) => {
         //create an NFT Token
           await contract.executeSale(product.id,product.expiry,{value:'0'}).then(
             async(da)=>{
-               await delTokenID(product.id);
+               await delTokenID({productID:product.productID,tokenID:product.id});
+               
             }
         )
 

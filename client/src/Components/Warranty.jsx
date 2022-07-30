@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 import NFT_Digital_Warranty from '../NFT_Digital_Warranty.json';
 import { Box, Typography, Button, Grid, styled } from "@mui/material";
-import axios from "axios"
+import axios from "axios";
 
 const Component = styled(Grid)(({ theme }) => ({
   padding: "30px 135px",
@@ -36,8 +36,6 @@ const StyledButton = styled(Button)`
 const Warranty = () => {
 
 
-
-
   const { tokenId } = useParams();
 
 
@@ -48,30 +46,34 @@ const Warranty = () => {
   var sale = async () => {
     const ethers = require("ethers");
 
-
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const addr = await signer.getAddress();
 
     //Pull the deployed contract instance
-    let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+    let contract = new ethers.Contract(
+      NFT_Digital_Warranty.address,
+      NFT_Digital_Warranty.abi,
+      signer
+    );
 
     //create an NFT Token
-    let nft = await contract.executeSale(tokenId, 20, { value: '0' });
-
-  }
-
+    let nft = await contract.executeSale(tokenId, 20, { value: "0" });
+  };
 
   var verify = async () => {
     const ethers = require("ethers");
 
-
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const addr = await signer.getAddress();
 
     //Pull the deployed contract instance
-    let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+    let contract = new ethers.Contract(
+      NFT_Digital_Warranty.address,
+      NFT_Digital_Warranty.abi,
+      signer
+    );
 
     //create an NFT Token
     // let nft =  await contract.executeSale(tokenId,50,{value:'0'});
@@ -111,7 +113,6 @@ const Warranty = () => {
   var getWarranty = async () => {
     const ethers = require("ethers");
 
-
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const addr = await signer.getAddress();
@@ -126,28 +127,16 @@ const Warranty = () => {
         setburnt(true);
       }
       console.log(nft);
-
-    }
-    catch (e) {
+    } catch (e) {
       console.log(e);
     }
-
-
-
-
-
-
-
-  }
-
+  };
 
   useEffect(() => {
     getWarranty();
-  }, [])
-
+  }, []);
 
   var seconds = Date.now() / 1000;
-
 
   return (
     <>
