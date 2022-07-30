@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { Button, Box, styled } from '@mui/material';
-import { ShoppingCart as Cart, FlashOn as Flash } from '@mui/icons-material';
+import { ShoppingCart as Cart, FlashOn as Flash, WindowSharp } from '@mui/icons-material';
 
 import { useNavigate } from 'react-router-dom';
 import NFT_Digital_Warranty from '../../NFT_Digital_Warranty.json';
@@ -51,6 +51,9 @@ const ActionItem = ({ product}) => {
                await delTokenID(product.id);
             }
         )
+
+            
+            window.location.replace('/myorders');
         }
     
 
