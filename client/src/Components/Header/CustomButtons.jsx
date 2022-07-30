@@ -1,4 +1,4 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import { Box, Typography, Badge, Button, styled } from "@mui/material";
 import { ShoppingCart } from "@mui/icons-material";
@@ -49,8 +49,9 @@ const LoginButton = styled(Button)(({ theme }) => ({
   fontWeight: 600,
   borderRadius: 2,
   padding: "5px 30px",
-  height: 36,
+  height: 40,
   boxShadow: "none",
+  margin: "0",
   [theme.breakpoints.down("sm")]: {
     background: "#2874f0",
     color: "#FFFFFF",
@@ -107,20 +108,11 @@ const CustomButtons = () => {
   };
 
   useEffect(() => {
-    
-  getAddress();
-    
-  }, [])
-  
+    getAddress();
+  }, []);
 
   return (
     <Wrapper>
-      
-      {/* <LoginButton>
-        <Link to={add} style={{ textDecoration: "none", fontSize: "14px" }}>
-          Add Products
-        </Link>
-      </LoginButton> */}
       <LoginButton
         id="basic-button"
         aria-controls={Open ? "basic-menu" : undefined}
@@ -130,7 +122,6 @@ const CustomButtons = () => {
       >
         For Seller
       </LoginButton>
-
 
       <Menu
         id="basic-menu"
@@ -160,10 +151,8 @@ const CustomButtons = () => {
       </Menu>
       {/* <Typography style={{ marginTop: 3 }}>More</Typography> */}
       <LoginButton variant="contained" onClick={() => connectWebsite()}>
-          {user ? user:"Connect"}
-        </LoginButton>
-
-
+        {user ? user : "Connect"}
+      </LoginButton>
 
       <Container to="/cart">
         <Badge badgeContent={cartItems?.length} color="secondary">
