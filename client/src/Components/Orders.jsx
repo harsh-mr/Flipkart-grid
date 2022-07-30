@@ -1,7 +1,16 @@
 import { useEffect, useState } from "react";
 import React from "react";
-import { Box, Card, Typography, Button, Grid, styled ,FormGroup, TextField} from "@mui/material";
-import { withStyles  } from "@mui/styles";
+import {
+  Box,
+  Card,
+  Typography,
+  Button,
+  Grid,
+  styled,
+  FormGroup,
+  TextField,
+} from "@mui/material";
+import { withStyles } from "@mui/styles";
 import axios from "axios";
 import NFT_Digital_Warranty from "../NFT_Digital_Warranty.json";
 import { Link } from "react-router-dom";
@@ -10,19 +19,18 @@ const StyledTextField = withStyles({
   root: {
     "& fieldset": {
       borderTopRightRadius: 0,
-      borderBottomRightRadius: 0
-    }
-  }
+      borderBottomRightRadius: 0,
+    },
+  },
 })(TextField);
 
 const StyledButton1 = withStyles({
   root: {
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
-    textTransform: "lowercase"
-  }
+    textTransform: "lowercase",
+  },
 })(Button);
-
 
 const SmallComponent = styled(Card)`
   border-top: 1px solid #f0f0f0;
@@ -37,7 +45,12 @@ const SmallLeftComponent = styled(Box)`
 `;
 
 const Description = styled(Typography)`
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: 400;
+`;
+
+const Heading = styled(Typography)`
+  font-size: 20px;
   font-weight: 600;
 `;
 
@@ -71,7 +84,7 @@ const StyledButton = styled(Button)`
   background: #fb641b;
   color: #fff;
   border-radius: 2px;
-  width: 250px;
+  width: 150px;
   height: 51px;
 `;
 
@@ -132,11 +145,17 @@ const Orders = () => {
 
   return (
     <>
-      <Component container style={{backgroundColor:"rgb(229 232 237)"}}>
+      <Component container style={{ backgroundColor: "rgb(229 232 237)" }}>
         <LeftComponent item lg={12} md={12} sm={12} xs={12}>
-          <Header style={{margin: "17px",boxShadow:"box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",borderRadius:" 10px 15px 15px 10px"
-              }}>
-            <Typography style={{ fontWeight: 700, fontSize: 18 ,}}>
+          <Header
+            style={{
+              margin: "17px",
+              boxShadow:
+                "box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+              borderRadius: " 10px 15px 15px 10px",
+            }}
+          >
+            <Typography style={{ fontWeight: 700, fontSize: 18 }}>
               My Orders
             </Typography>
           </Header>
@@ -144,64 +163,73 @@ const Orders = () => {
           {data ? (
             data.map((item, key) => {
               return (
-                <SmallComponent style={{margin: "17px",boxShadow:"box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",borderRadius:" 10px 15px 15px 10px"
-              }}>
-                  <div style={{width:"50%",display:"flex"}}>
-
-                  
-                  <SmallLeftComponent >
-                    <img src={item.image} style={{ height: 180, width: 180 }} />
-                  </SmallLeftComponent>
-                  <Box style={{ margin: 20 }}>
-                    <Typography>{item.name}</Typography>
-                    
-                    <Typography style={{ margin: "20px 0", overflowWrap: "break-word" }}>
-                      <Description component="span" style={{overflowWrap: "break-word"}}>
-                        {item.description}
-                      </Description>
-                      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                    </Typography>
-                    <SerialNo component="span">{item.serialno}</SerialNo>
-                  </Box>
-
-                  </div>
-                    <div style={{display:"",margin:"auto"}}>
-
-
-                  <div style={{display:"flex"}}>
-
-                  <StyledButton style={{ margin: ""  }}>
-                    <Link
-                      to={`/getWarranties/${item.tokenId}`}
-                      style={{ textDecoration: "none", color: "white" }}
+                <SmallComponent
+                  style={{
+                    margin: "17px",
+                    boxShadow:
+                      "box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px",
+                    borderRadius: " 10px 15px 15px 10px",
+                  }}
+                >
+                  <div style={{ width: "50%", display: "flex" }}>
+                    <SmallLeftComponent>
+                      <img
+                        src={item.image}
+                        style={{ height: 180, width: 180 }}
+                      />
+                    </SmallLeftComponent>
+                    <Box style={{ margin: 20 }}>
+                      <Heading>{item.name}</Heading>
+                      <Typography
+                        style={{ margin: "20px 0", overflowWrap: "break-word" }}
                       >
-                      View Warranty
-                    </Link>
-                  </StyledButton>
-
-                  <StyledButton style={{ margin: ""  }}>
-                    <Link
-                      to={`/getWarranties/${item.tokenId}`}
-                      style={{ textDecoration: "none", color: "white" }}
-                      >
-                      View Warranty
-                    </Link>
-                  </StyledButton>
-
-
-
+                        <Description
+                          component="span"
+                          style={{ overflowWrap: "break-word" }}
+                        >
+                          {item.description}
+                        </Description>
+                        &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                      </Typography>
+                      <SerialNo component="span">
+                        Serial No : {item.serialno}
+                      </SerialNo>
+                    </Box>
                   </div>
-                  <FormGroup row style={{ margin: "10% 30px" }}>
-                 <StyledTextField variant="outlined" placeholder="Receiver metamask address" />
-                
-                  <StyledButton1 variant="contained" disableElevation>
-                   Sell Warranty
-                  </StyledButton1>
-                    </FormGroup>
-                  
-                 
-                    
+                  <div style={{ display: "", margin: "40px 60px" }}>
+                    <div style={{ display: "flex" }}>
+                      <StyledButton style={{ marginRight: "0px" }}>
+                        <Link
+                          to={`/getWarranties/${item.tokenId}`}
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          View Warranty
+                        </Link>
+                      </StyledButton>
+
+                      <StyledButton style={{ margin: "" }}>
+                        <Link
+                          to={`/getWarranties/${item.tokenId}`}
+                          style={{ textDecoration: "none", color: "white" }}
+                        >
+                          View Warranty
+                        </Link>
+                      </StyledButton>
                     </div>
+                    <FormGroup
+                      row
+                      style={{ marginTop: "20px", marginLeft: "50px" }}
+                    >
+                      <StyledTextField
+                        variant="outlined"
+                        placeholder="Receiver metamask address"
+                      />
+
+                      <StyledButton1 variant="contained" disableElevation>
+                        Sell Warranty
+                      </StyledButton1>
+                    </FormGroup>
+                  </div>
                 </SmallComponent>
               );
             })
