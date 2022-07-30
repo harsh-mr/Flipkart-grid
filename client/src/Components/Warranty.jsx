@@ -42,8 +42,11 @@ const Warranty = () => {
   const [data, setdata] = useState();
   const [meta, setmeta] = useState();
   const [burnt, setburnt] = useState(false);
+   const cleanDate =(d)=> {return new Date(+d.replace(/\/Date\((\d+)\)\//, '$1'))};
 
   var sale = async () => {
+
+
     const ethers = require("ethers");
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -295,7 +298,7 @@ const Warranty = () => {
                               fontWeight: "bold",
                             }}
                           >
-                            {(seconds - data.expiry.toNumber()) / 86400}
+                            {(new Date(data.expiry.toNumber() * 1000).toISOString().slice(0, 10))}
                           </span>
                         </p>
                       </div>
