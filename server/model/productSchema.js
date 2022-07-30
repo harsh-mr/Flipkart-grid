@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
-//const {ObjectId}=mongoose.Schema.Types;
+
 const productSchema = new mongoose.Schema({
    //Stores the name of the specific product
    productID:{

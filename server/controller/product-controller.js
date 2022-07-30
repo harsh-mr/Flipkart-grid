@@ -1,10 +1,12 @@
 import Product from '../model/productSchema.js';
+import Repairs from '../model/repairSchema.js';
 import sgMail from '@sendgrid/mail'
 
 
 const SENDGRID_API_KEY='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'
 
 sgMail.setApiKey(SENDGRID_API_KEY)
+
 export const getProducts = async (request, response) => {
     try {
         const products = await Product.find({});
@@ -55,8 +57,7 @@ export const postNFT = async (request, response) => {
 
 export const delNFT = async (request, response) => {
     try {
-         console.log(request.body.productID)
-         console.log(request.body)
+        var date,reason;
         const{productID,tokenID,email,url,nftname,nftdisc,serialno,time}=request.body;;
         Product.findOneAndUpdate({productID:productID},{
             $pull:{tokenID:tokenID}
@@ -64,7 +65,11 @@ export const delNFT = async (request, response) => {
             new:true
         }).then(da=>{
             if(da){
-                
+                Repairs.findOne({tokenID:tokenID}).
+                then(res=>{
+                 date=res.repair_date,
+                 reason=res.repair_reason
+                })
 
 const msg = {
   to: email, // Change to your recipient
@@ -78,7 +83,21 @@ const msg = {
          Details of your nft :
          1. NFT Name: ${nftname}
          2. NFT discription :${nftdisc}
-         3. NFT Image : ${url}`,
+         3. NFT Image : ${url}
+         
+         Repair Log :`,
+   html:      `${
+            date.map((val,index)=>{
+                const ans=reason[index];
+                return(
+                    `<div>
+                        <h3>{index+1}. {val}</h3>
+                        <p>{ans}</p>
+                    </div>`
+                )
+            })
+         }`
+         ,
 }
 sgMail
   .send(msg)
@@ -134,6 +153,28 @@ export const postProduct = async (request, response) => {
         })
         }
         
+    catch (error) {
+        response.json(error);
+    }
+}
+
+export const repair = async (request, response) => {
+    try {
+       const {tokenID,date,discription}=request.body;
+       Repairs.findOneAndUpdate({tokenID:tokenID},{
+        $push:{repair_date:date},
+        $push:{repair_reason:discription}
+    },{
+        new:true
+    })
+        .then(da=>{
+            if(da){
+                response.json({message:"success"})
+            }
+            else{
+                response.json({error:"failed"})
+            }
+        })}
     catch (error) {
         response.json(error);
     }
