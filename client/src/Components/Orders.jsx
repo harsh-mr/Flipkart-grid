@@ -209,10 +209,10 @@ const Orders = () => {
 
                       <StyledButton style={{ margin: "" }}>
                         <Link
-                          to={`/getWarranties/${item.tokenId}`}
+                          to={`/repairlog/${item.tokenId}`}
                           style={{ textDecoration: "none", color: "white" }}
                         >
-                          View Warranty
+                         View Repair Log
                         </Link>
                       </StyledButton>
                     </div>

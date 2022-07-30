@@ -31,7 +31,7 @@ export const getProductById = async (id) => {
 }
 export const getRepairLog = async (id) => {
     try {
-        console.log(1)
+        console.log(id)
         let data  = await axios.get( `${url}/repairlog/${id}`);
         console.log(data)
         return data.data;

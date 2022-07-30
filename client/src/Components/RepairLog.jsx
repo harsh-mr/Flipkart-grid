@@ -9,22 +9,26 @@ import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { getRepairLog } from '../service/api';
 import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 
 
-export default function BasicTable({tokenID}) {
+export default function BasicTable() {
 
     var [Date,setDate]=useState({});
     var [Discription,setDiscription]=useState({});
-
-    var getTable = async () => {
+    const {tokenID}=useParams();
+    console.log(tokenID)
+    const getTable = async () => {
         
         try{
            await getRepairLog(tokenID).then(
             da=>{
-             setDate(da.date);
-             setDiscription(da.discription);
-
+                console.log(da.body)
+             setDate(da.repair_date);
+             setDiscription(da.repair_reason);
+             console.log(Date);
+             console.log(Discription);
             }
            )
 
@@ -47,7 +51,7 @@ export default function BasicTable({tokenID}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Date.map((val,index) => {
+          {Date && Date.map((val,index) => {
             var comp=Discription[index];
             return(
             <TableRow

@@ -34,7 +34,7 @@ function App() {
               <Route path= '/product/:id' element={<DetailView />} />
               <Route path= '/myorders' element={<Orders />} />
               <Route path= '/repair' element={<Repair />} />
-              <Route path= '/repairlog' element={<RepairLog />} />
+              <Route path= '/repairlog/:tokenID' element={<RepairLog />} />
            
             </Routes>
           </Box>
