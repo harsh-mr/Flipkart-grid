@@ -27,6 +27,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         // uint256 price;
         // bool currentlyListed;
         uint256 expiry;
+        uint256 created;
         string serialNo;
         
     }
@@ -39,6 +40,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         // uint256 price,
         // bool currentlyListed,
         uint256 expiry,
+        uint256 created,
         string serialNo
         
     );
@@ -109,6 +111,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
 
             //to check if nft is issued or not
             0,
+            0,
             serialNo
 
         );
@@ -121,6 +124,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
             msg.sender,
             // price,
             // true
+            0,
             0,
             serialNo
             
@@ -188,6 +192,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         //to check if nft is getting sold first time ,so we can issue warranty 
         if(idToListedToken[tokenId].expiry == 0){
             idToListedToken[tokenId].expiry  =  block.timestamp + expTime;
+            idToListedToken[tokenId].created  =  block.timestamp;
            
         }
 
@@ -210,6 +215,11 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         //Transfer the proceeds from the sale to the seller of the NFT
         // payable(seller).transfer(msg.value);
     }
+    
+  
+
+    
+
 
     function BurnNFT(uint256 tokenId) public payable {
         require(idToListedToken[tokenId].expiry !=0,"warranty is yet to be issued" );

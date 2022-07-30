@@ -267,7 +267,9 @@ const Warranty = () => {
                               fontWeight: "bold",
                             }}
                           >
-                            20/06/2022
+                            {new Date(data.created.toNumber() * 1000)
+                              .toISOString()
+                              .slice(0, 10)}
                           </span>
                         </p>
                         <p
@@ -283,8 +285,12 @@ const Warranty = () => {
                               color: "black",
                               fontSize: "16px",
                               fontWeight: "bold",
-                            }}
-                          ></span>
+                            }}>
+
+                            {new Date(data.expiry.toNumber() * 1000)
+                              .toISOString()
+                              .slice(0, 10)}
+                          </span>
                         </p>
                       </div>
                       <div
@@ -320,9 +326,7 @@ const Warranty = () => {
                               fontWeight: "bold",
                             }}
                           >
-                            {new Date(data.expiry.toNumber() * 1000)
-                              .toISOString()
-                              .slice(0, 10)}
+                            
                           </span>
                         </p>
                       </div>
