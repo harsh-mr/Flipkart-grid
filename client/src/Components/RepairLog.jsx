@@ -15,8 +15,8 @@ import { useParams } from 'react-router-dom';
 
 export default function BasicTable() {
 
-    var [Date,setDate]=useState({});
-    var [Discription,setDiscription]=useState({});
+    var [Date,setDate]=useState([]);
+    var [Discription,setDiscription]=useState([]);
     const {tokenID}=useParams();
     console.log(tokenID)
     const getTable = async () => {
