@@ -160,7 +160,7 @@ export default function SellNFT() {
       alert("Successfully listed your NFT!");
       updateMessage("");
       updateFormParams({ name: "", description: "", serialno: "" });
-      window.location.replace("/addnft");
+      window.location.replace(`/addnft/${productID}`);
     } catch (e) {
       alert("Upload error" + e);
     }
