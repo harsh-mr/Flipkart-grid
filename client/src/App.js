@@ -16,6 +16,7 @@ import Orders from './Components/Orders';
 import Warranty from './Components/Warranty';
 import Repair from './Components/Repair';
 import RepairLog from './Components/RepairLog';
+import SpinningWheel from './Components/SpinningWheel';
 
 
 function App() {
@@ -35,7 +36,7 @@ function App() {
               <Route path= '/myorders' element={<Orders />} />
               <Route path= '/repair' element={<Repair />} />
               <Route path= '/repairlog/:tokenID' element={<RepairLog />} />
-           
+              <Route path= '/spinningwheel' element={<SpinningWheel />} />
             </Routes>
           </Box>
         </BrowserRouter>
