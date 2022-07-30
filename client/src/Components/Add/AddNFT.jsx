@@ -291,7 +291,7 @@ export default function SellNFT() {
             </label>
             <input type={"file"} onChange={OnChangeFile}></input> */}
           </div>
-          <div>{message}</div>
+          <div style={{ margin: "20px 30%" }}>{message}</div>
           <StyledButton onClick={listNFT} style={{ margin: "20px 30%" }}>
             Upload Product
           </StyledButton>
@@ -304,7 +304,7 @@ export default function SellNFT() {
       >
         {connected ? "Connected" : "Connect Wallet"}
       </StyledButton>
-      <div>{currAddress}</div>
+      <div style={{ margin: "20px 30%" }}>{currAddress}</div>
     </div>
   );
 }
