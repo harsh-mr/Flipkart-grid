@@ -216,6 +216,20 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         // payable(seller).transfer(msg.value);
     }
     
+    function TransferNFT(uint256 tokenId ,address ad) public payable {
+        require( idToListedToken[tokenId].seller == payable(msg.sender) || owner == payable(msg.sender)  ,"you need to own this warranty");
+        require(block.timestamp<=idToListedToken[tokenId].expiry,"warranty is expired");
+     
+        idToListedToken[tokenId].seller = payable(ad);
+    
+        //Actually transfer the token to the new owner
+        _transfer(address(this), payable(ad), tokenId);
+        //approve the marketplace to sell NFTs on your behalf
+        approve(address(this), tokenId);
+
+        
+    }
+    
   
 
     

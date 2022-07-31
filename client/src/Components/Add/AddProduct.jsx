@@ -142,7 +142,7 @@ export default function AddPro() {
                 updateFormParams({ ...formParams, price: e.target.value });
               }}
               style={{ width: "400px" }}
-              type="number"
+             
             />
             {/* <label className="" htmlFor="Price">
               Price{" "}
@@ -168,7 +168,7 @@ export default function AddPro() {
                 updateFormParams({ ...formParams, expiry: e.target.value });
               }}
               style={{ width: "400px" }}
-              type="number"
+             
             />
             {/* <label className="" htmlFor="Expiry">
               Life of Warranty{" "}
@@ -194,7 +194,7 @@ export default function AddPro() {
                 updateFormParams({ ...formParams, productID: e.target.value });
               }}
               style={{ width: "400px" }}
-              type="number"
+              
             />
             {/* <label className="" htmlFor="ProductID">
               Product ID

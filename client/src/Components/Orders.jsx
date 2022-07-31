@@ -89,6 +89,7 @@ const StyledButton = styled(Button)`
 `;
 
 const Orders = () => {
+  const [add, setaddress] = useState();
   var transaction;
   const [data, setdata] = useState([]);
   var getallwarranties = async () => {
@@ -138,6 +139,27 @@ const Orders = () => {
     console.log(items);
     console.log(data);
   };
+
+  const resale  = async(e) =>{
+    const ethers = require("ethers");
+
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    // const addr = await signer.getAddress();
+
+    //Pull the deployed contract instance
+    let contract = new ethers.Contract(
+      NFT_Digital_Warranty.address,
+      NFT_Digital_Warranty.abi,
+      signer
+    );
+      console.log(add);
+      // console.log(e.type);
+  var exec  = await contract.TransferNFT(e,add,{value:"0",});
+  await exec.wait();
+
+  console.log(exec);
+  }
 
   useEffect(() => {
     getallwarranties();
@@ -223,9 +245,10 @@ const Orders = () => {
                       <StyledTextField
                         variant="outlined"
                         placeholder="Receiver metamask address"
+                        onChange={(e)=>{setaddress(e.target.value)}}
                       />
 
-                      <StyledButton1 variant="contained" disableElevation>
+                      <StyledButton1 variant="contained" onClick={()=>(resale(item.tokenId))} disableElevation>
                         Sell Warranty
                       </StyledButton1>
                     </FormGroup>

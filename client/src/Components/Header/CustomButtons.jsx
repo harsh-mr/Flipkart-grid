@@ -154,11 +154,11 @@ const CustomButtons = () => {
         {user ? user : "Connect"}
       </LoginButton>
 
-      <Container to="/cart">
+      <Container to="/myorders">
         <Badge badgeContent={cartItems?.length} color="secondary">
           <ShoppingCart />
         </Badge>
-        <Typography style={{ marginLeft: 10 }}>Cart</Typography>
+        <Typography style={{ marginLeft: 10 }}>My Orders</Typography>
       </Container>
       <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} />
     </Wrapper>
