@@ -42,30 +42,35 @@ const ActionItem = ({ product}) => {
         if(!emails.email){
             return  window.alert("Enter the email id")
         }
-        const ethers = require("ethers");
+        localStorage.setItem("email",emails.email);
+        localStorage.setItem("productID",product.productID);
+        localStorage.setItem("tokenID",product.id);
+        localStorage.setItem("expiry",product.expiry);
+        console.log(typeof(product.expiry))
+        // const ethers = require("ethers");
         
     
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const addr = await signer.getAddress();
+        // const provider = new ethers.providers.Web3Provider(window.ethereum);
+        // const signer = provider.getSigner();
+        // const addr = await signer.getAddress();
   
-        //Pull the deployed contract instance
-        let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
+        // //Pull the deployed contract instance
+        // let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
           
-        //create an NFT Token
-          await contract.executeSale(product.id,product.expiry,{value:'0'}).then(
-            async(da)=>{
-                console.log(da)
-                const tokenURI = await contract.tokenURI(product.id);
-          let meta = await axios.get(tokenURI);
-          //console.log(meta)
-               await delTokenID({productID:product.productID,tokenID:product.id,email:emails.email,url:meta.data.image,nftname:meta.data.name,nftdisc:meta.data.description,serialno:meta.data.serialno,time:(new Date().toISOString().slice(0, 10))});
+        // //create an NFT Token
+        //   await contract.executeSale(product.id,product.expiry,{value:'0'}).then(
+        //     async(da)=>{
+        //         console.log(da)
+        //         const tokenURI = await contract.tokenURI(product.id);
+        //   let meta = await axios.get(tokenURI);
+        //   //console.log(meta)
+        //        await delTokenID({productID:product.productID,tokenID:product.id,email:emails.email,url:meta.data.image,nftname:meta.data.name,nftdisc:meta.data.description,serialno:meta.data.serialno,time:(new Date().toISOString().slice(0, 10))});
                
-            }
-        )
+        //     }
+        
 
             
-            window.location.replace('/myorders');
+            window.location.replace('/spinningwheel');
         }
     
 

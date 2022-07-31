@@ -158,7 +158,12 @@ const CustomButtons = () => {
         <Badge badgeContent={cartItems?.length} color="secondary">
           <ShoppingCart />
         </Badge>
-        <Typography style={{ marginLeft: 10 }}>Cart</Typography>
+        <Link
+          to="/myorders"
+          style={{ marginLeft: 10, textDecoration: "none", color: "white" }}
+        >
+          My Orders
+        </Link>
       </Container>
       <LoginDialog open={open} setOpen={setOpen} setAccount={setAccount} />
     </Wrapper>

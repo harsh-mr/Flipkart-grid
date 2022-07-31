@@ -144,6 +144,8 @@ const Warranty = () => {
       setmeta(meta.data);
       setdata(nft);
       console.log(meta);
+      console.log(meta.data);
+      console.log(meta.tokenId);
       console.log(nft);
     }
   };
@@ -181,8 +183,7 @@ const Warranty = () => {
   var seconds = Date.now() / 1000;
 
   const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => setOpen(true);
 
   return (
     <>
@@ -201,8 +202,8 @@ const Warranty = () => {
                   <Component container>
                     <div
                       style={{
-                        height: "70vh",
-                        width: "85%",
+                        height: "65vh",
+                        width: "75%",
                         margin: "30px auto",
                         display: "flex",
                         background: "#f8fcff",
@@ -234,6 +235,33 @@ const Warranty = () => {
                         >
                           Certificate of Warranty
                         </h1>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            margin: "0px",
+                          }}
+                        >
+                          <p
+                            style={{
+                              color: "#8d8d8d",
+                              fontSize: "18px",
+                              margin: "5px",
+                            }}
+                          >
+                            Token ID{" "}
+                          </p>
+                          <p
+                            style={{
+                              color: "black",
+                              fontSize: "18px",
+                              fontWeight: "bold",
+                              margin: "5px",
+                            }}
+                          >
+                            {tokenId}
+                          </p>
+                        </div>
                         <div
                           style={{
                             display: "flex",
@@ -321,7 +349,12 @@ const Warranty = () => {
                         </div>
 
                         <div>
-                          <div style={{ margin: "10px" ,  overflowWrap: "break-word"}}>
+                          <div
+                            style={{
+                              margin: "10px",
+                              overflowWrap: "break-word",
+                            }}
+                          >
                             {meta.description}
                           </div>
                         </div>
