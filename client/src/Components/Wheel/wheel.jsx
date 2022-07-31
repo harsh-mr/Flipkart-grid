@@ -35,6 +35,20 @@ export default class Wheel extends React.Component {
     };
     const spinning = selectedItem !== null ? "spinning" : "";
     console.log(selectedItem);
+    const places = [
+      1 ,
+      50,
+      10,
+      365,
+      182 ,
+      0,
+    ];
+    setTimeout(()=>{if(selectedItem){
+      
+      localStorage.setItem("val",places[selectedItem])
+      window.location.replace('/transaction')
+    }},5000)
+    
 
     return (
       <div className="wheel-container">

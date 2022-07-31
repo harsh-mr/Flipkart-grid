@@ -77,10 +77,7 @@ export const delNFT = async (request, response) => {
             if(da){
                 Repairs.findOne({tokenID:tokenID}).
                 then(res=>{
-                 date=res.repair_date,
-                 reason=res.repair_reason
-                console.log(date);
-                console.log(reason);
+                 
 
 const msg = {
   to: email, // Change to your recipient

@@ -7,12 +7,12 @@ export default class SpinningWheel extends React.Component {
   constructor() {
     super();
     this.places = [
-      "001 Day",
-      "050 Days",
-      "010 Days",
+      "1 Day",
+      "50 Days",
+      "10 Days",
       "365 Days",
       "182 Days",
-      "000 Days",
+      "0 Days",
     ];
   }
 
