@@ -162,7 +162,7 @@ export default function SellNFT() {
       updateFormParams({ name: "", description: "", serialno: "" });
       window.location.replace(`/addnft/${productID}`);
     } catch (e) {
-      alert("Upload error" + e);
+      alert("Press Upload product button again to confirm listing of your NFT");
     }
   }
 
@@ -297,14 +297,14 @@ export default function SellNFT() {
           </StyledButton>
         </form>
       </div>
-      <StyledButton
+      {/* <StyledButton
         className="enableEthereumButton bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm"
         onClick={connectWebsite}
         style={{ margin: "20px 30%" }}
       >
         {connected ? "Connected" : "Connect Wallet"}
       </StyledButton>
-      <div style={{ margin: "20px 30%" }}>{currAddress}</div>
+      <div style={{ margin: "20px 30%" }}>{currAddress}</div> */}
     </div>
   );
 }
