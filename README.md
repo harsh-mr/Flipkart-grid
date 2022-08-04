@@ -16,7 +16,6 @@ This project is being developed for Flipkart Grid 4.0 2022 program. In this proj
 
 ## Features
 
-- Recommend Movies
 - Converted ownership authenticity and product
   warranty cards into decaying NFTs.
 - Customers can then use the digital NFT to verify the
