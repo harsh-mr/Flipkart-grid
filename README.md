@@ -1,7 +1,7 @@
 # Flipkart-grid
 eCommerce warranty system using NFTs
 
-
+NOTE: The sendgrid mail won't work as the key will get exposed over here
 Smart contract is in ./client/contracts/NFT_Digital_Warranty.sol
 
 This project is being developed for Flipkart Grid 4.0 2022 program. In this project I have used Non Fungible Token for converting physical warranty into digital ,and various other frameworks to develop user-friendly User Interface for our project .
