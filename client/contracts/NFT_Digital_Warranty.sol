@@ -52,14 +52,9 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    // function updateListPrice(uint256 _listPrice) public payable {
-    //     require(owner == msg.sender, "Only owner can update listing price");
-    //     listPrice = _listPrice;
-    // }
+   
 
-    // function getListPrice() public view returns (uint256) {
-    //     return listPrice;
-    // }
+    
 
     function getLatestIdToListedToken() public view returns (ListedToken memory) {
         uint256 currentTokenId = _tokenIds.current();
@@ -95,10 +90,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
     }
 
     function createListedToken(uint256 tokenId,string memory serialNo) private {
-        //Make sure the sender sent enough ETH to pay for listing
-        // require(msg.value == listPrice, "Hopefully sending the correct price");
-        //Just sanity check
-        // require(price > 0, "Make sure the price isn't negative");
+
 
         //Update the mapping of tokenId's to Token details, useful for retrieval functions
         idToListedToken[tokenId] = ListedToken(
@@ -130,25 +122,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
             
         );
     }
-    
-    //This will return all the NFTs currently listed to be sold on the marketplace
-    // function getAllNFTs() public view returns (ListedToken[] memory) {
-    //     uint nftCount = _tokenIds.current();
-    //     ListedToken[] memory tokens = new ListedToken[](nftCount);
-    //     uint currentIndex = 0;
-
-    //     //at the moment currentlyListed is true for all, if it becomes false in the future we will 
-    //     //filter out currentlyListed == false over here
-    //     for(uint i=0;i<nftCount;i++)
-    //     {
-    //         uint currentId = i + 1;
-    //         ListedToken storage currentItem = idToListedToken[currentId];
-    //         tokens[currentIndex] = currentItem;
-    //         currentIndex += 1;
-    //     }
-    //     //the array 'tokens' has the list of all NFTs in the marketplace
-    //     return tokens;
-    // }
+  
     
 
 
