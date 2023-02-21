@@ -1,12 +1,13 @@
 
 import { useState, useEffect } from 'react';
 
-import { styled, Box, Typography, Grid } from '@mui/material';
+import { styled, Box, Typography, Grid,Modal , } from '@mui/material';
 
 import ProductDetail from './ProductDetail';
 import ActionItem from './ActionItem';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../../service/api';
+import wheel from '../Wheel/wheel'
 
 
 
@@ -30,12 +31,27 @@ const RightContainer = styled(Grid)`
     }
 `;
 
+const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
 
 
 const DetailView = () => {
     const { id } = useParams();
     console.log(id)
     const [rep,setrep]=useState('');
+
+    const [open, setOpen] = useState(true);
+    const handleClose = () => setOpen(true);
     useEffect(()=>{
         const find  = async ()=>{
             let ans= await getProductById(id);
@@ -58,6 +74,19 @@ const DetailView = () => {
     return (
         <Component>
             <Box></Box>
+
+            {/* <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                {wheel}
+              </Box>
+
+            </Modal> */}
+
             
                { rep && <Container container> 
                     <Grid item lg={4} md={4} sm={8} xs={12}>

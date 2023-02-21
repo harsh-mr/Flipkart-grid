@@ -52,7 +52,15 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    //Listed Token 
+    // function updateListPrice(uint256 _listPrice) public payable {
+    //     require(owner == msg.sender, "Only owner can update listing price");
+    //     listPrice = _listPrice;
+    // }
+
+    // function getListPrice() public view returns (uint256) {
+    //     return listPrice;
+    // }
+
     function getLatestIdToListedToken() public view returns (ListedToken memory) {
         uint256 currentTokenId = _tokenIds.current();
         return idToListedToken[currentTokenId];
@@ -87,7 +95,10 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
     }
 
     function createListedToken(uint256 tokenId,string memory serialNo) private {
-        
+        //Make sure the sender sent enough ETH to pay for listing
+        // require(msg.value == listPrice, "Hopefully sending the correct price");
+        //Just sanity check
+        // require(price > 0, "Make sure the price isn't negative");
 
         //Update the mapping of tokenId's to Token details, useful for retrieval functions
         idToListedToken[tokenId] = ListedToken(
@@ -178,6 +189,36 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         approve(address(this), tokenId);
 
         
+        
+    }
+    
+    function TransferNFT(uint256 tokenId ,address ad) public payable {
+        require( idToListedToken[tokenId].seller == payable(msg.sender) || owner == payable(msg.sender)  ,"you need to own this warranty");
+        require(block.timestamp<=idToListedToken[tokenId].expiry,"warranty is expired");
+     
+        idToListedToken[tokenId].seller = payable(ad);
+    
+        //Actually transfer the token to the new owner
+        _transfer(address(this), payable(ad), tokenId);
+        //approve the marketplace to sell NFTs on your behalf
+        approve(address(this), tokenId);
+        emit Approval(idToListedToken[tokenId].seller ,address(this) ,tokenId);
+
+        
+    }
+    
+    function TransferNFT(uint256 tokenId ,address ad) public payable {
+        require( idToListedToken[tokenId].seller == payable(msg.sender) || owner == payable(msg.sender)  ,"you need to own this warranty");
+        require(block.timestamp<=idToListedToken[tokenId].expiry,"warranty is expired");
+     
+        idToListedToken[tokenId].seller = payable(ad);
+    
+        //Actually transfer the token to the new owner
+        _transfer(address(this), payable(ad), tokenId);
+        //approve the marketplace to sell NFTs on your behalf
+        approve(address(this), tokenId);
+        emit Approval(idToListedToken[tokenId].seller ,address(this) ,tokenId);
+
         
     }
     

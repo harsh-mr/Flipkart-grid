@@ -66,7 +66,8 @@ const ActionItem = ({ product}) => {
         //   //console.log(meta)
         //        await delTokenID({productID:product.productID,tokenID:product.id,email:emails.email,url:meta.data.image,nftname:meta.data.name,nftdisc:meta.data.description,serialno:meta.data.serialno,time:(new Date().toISOString().slice(0, 10))});
                
-        //     }
+            // }
+        // )
         
 
             

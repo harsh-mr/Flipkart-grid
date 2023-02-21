@@ -3,7 +3,7 @@ import Repairs from '../model/repairSchema.js';
 import sgMail from '@sendgrid/mail'
 
 
-const SENDGRID_API_KEY='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'
+const SENDGRID_API_KEY=''
 
 sgMail.setApiKey(SENDGRID_API_KEY)
 

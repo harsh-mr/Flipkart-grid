@@ -162,7 +162,7 @@ export default function SellNFT() {
       updateFormParams({ name: "", description: "", serialno: "" });
       window.location.reload()
     } catch (e) {
-      alert("Press the button to list your nft");
+      alert("Press Upload product button again to confirm listing of your NFT");
     }
   }
 
@@ -303,8 +303,8 @@ export default function SellNFT() {
         style={{ margin: "20px 30%" }}
       >
         {connected ? "Connected" : "Connect Wallet"}
-      </StyledButton> */}
-      {/* <div style={{ margin: "20px 30%" }}>{currAddress}</div> */}
+      </StyledButton>
+      <div style={{ margin: "20px 30%" }}>{currAddress}</div> */}
     </div>
   );
 }
