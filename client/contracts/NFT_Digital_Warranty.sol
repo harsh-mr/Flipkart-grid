@@ -14,7 +14,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
     //Keeps track of the number of items sold on the marketplace
     Counters.Counter private _itemsSold;
     //owner is the contract address that created the smart contract
-    //super user(flipkart)
+    //super user(flipkart) 
     address payable owner;
     //The fee charged by the marketplace to be allowed to list an NFT
     // uint256 listPrice = 0.01 ether;
@@ -52,15 +52,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         owner = payable(msg.sender);
     }
 
-    // function updateListPrice(uint256 _listPrice) public payable {
-    //     require(owner == msg.sender, "Only owner can update listing price");
-    //     listPrice = _listPrice;
-    // }
-
-    // function getListPrice() public view returns (uint256) {
-    //     return listPrice;
-    // }
-
+    //Listed Token 
     function getLatestIdToListedToken() public view returns (ListedToken memory) {
         uint256 currentTokenId = _tokenIds.current();
         return idToListedToken[currentTokenId];
@@ -95,10 +87,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
     }
 
     function createListedToken(uint256 tokenId,string memory serialNo) private {
-        //Make sure the sender sent enough ETH to pay for listing
-        // require(msg.value == listPrice, "Hopefully sending the correct price");
-        //Just sanity check
-        // require(price > 0, "Make sure the price isn't negative");
+        
 
         //Update the mapping of tokenId's to Token details, useful for retrieval functions
         idToListedToken[tokenId] = ListedToken(
@@ -130,25 +119,6 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
             
         );
     }
-    
-    //This will return all the NFTs currently listed to be sold on the marketplace
-    // function getAllNFTs() public view returns (ListedToken[] memory) {
-    //     uint nftCount = _tokenIds.current();
-    //     ListedToken[] memory tokens = new ListedToken[](nftCount);
-    //     uint currentIndex = 0;
-
-    //     //at the moment currentlyListed is true for all, if it becomes false in the future we will 
-    //     //filter out currentlyListed == false over here
-    //     for(uint i=0;i<nftCount;i++)
-    //     {
-    //         uint currentId = i + 1;
-    //         ListedToken storage currentItem = idToListedToken[currentId];
-    //         tokens[currentIndex] = currentItem;
-    //         currentIndex += 1;
-    //     }
-    //     //the array 'tokens' has the list of all NFTs in the marketplace
-    //     return tokens;
-    // }
     
 
 
@@ -185,8 +155,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         require(expTime>0,"Please enter a valid expiry time");
 
 
-        // uint price = idToListedToken[tokenId].price;
-        // address seller = idToListedToken[tokenId].seller;
+        
 
 
         //to check if nft is getting sold first time ,so we can issue warranty 
@@ -197,12 +166,10 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         }
 
 
-        // require(msg.value == price, "Please submit the asking price in order to complete the purchase");
-
-        //update the details of the token
-        // idToListedToken[tokenId].currentlyListed = true;
+        //updates the seller of the particular nft
         idToListedToken[tokenId].seller = payable(msg.sender);
         
+        //increases the sold item count
         _itemsSold.increment();
 
         //Actually transfer the token to the new owner
@@ -210,10 +177,8 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         //approve the marketplace to sell NFTs on your behalf
         approve(address(this), tokenId);
 
-        //Transfer the listing fee to the marketplace creator
-        // payable(owner).transfer(listPrice);
-        //Transfer the proceeds from the sale to the seller of the NFT
-        // payable(seller).transfer(msg.value);
+        
+        
     }
     
   
@@ -222,10 +187,13 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
 
 
     function BurnNFT(uint256 tokenId) public payable {
+        //first checks the warranty period of the nft
         require(idToListedToken[tokenId].expiry !=0,"warranty is yet to be issued" );
+        //checks if the request is made by the owner or not
         require(owner==msg.sender || idToListedToken[tokenId].seller == payable(msg.sender)  ,"you need to own this warranty");
+        //when the expiry date has not been achieved
         require(block.timestamp>idToListedToken[tokenId].expiry,"warranty is yet to expire");
-
+        //calling the inbuilt burn function
         _burn(tokenId);
         idToListedToken[tokenId].seller = payable(0x0000000000000000000000000000000000000000);
         idToListedToken[tokenId].owner = payable(0x0000000000000000000000000000000000000000);

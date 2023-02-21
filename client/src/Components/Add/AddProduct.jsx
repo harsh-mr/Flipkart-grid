@@ -31,13 +31,14 @@ export default function AddPro() {
       // console.log(formParams)
       const { product_name, discription, price, productID, expiry } =
         formParams;
+        const expirys=expiry;
       postProductDetails({
         product_name,
         discription,
         price,
         productID,
         product_image,
-        expiry,
+        expirys,
       }).then(window.location.replace(`/addnft/${productID}`));
     }
   }, [product_image]);
@@ -142,7 +143,7 @@ export default function AddPro() {
                 updateFormParams({ ...formParams, price: e.target.value });
               }}
               style={{ width: "400px" }}
-              type="number"
+              
             />
             {/* <label className="" htmlFor="Price">
               Price{" "}
@@ -168,7 +169,7 @@ export default function AddPro() {
                 updateFormParams({ ...formParams, expiry: e.target.value });
               }}
               style={{ width: "400px" }}
-              type="number"
+              
             />
             {/* <label className="" htmlFor="Expiry">
               Life of Warranty{" "}
@@ -194,7 +195,7 @@ export default function AddPro() {
                 updateFormParams({ ...formParams, productID: e.target.value });
               }}
               style={{ width: "400px" }}
-              type="number"
+              
             />
             {/* <label className="" htmlFor="ProductID">
               Product ID

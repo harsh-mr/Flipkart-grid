@@ -119,6 +119,7 @@ const CustomButtons = () => {
         aria-haspopup="true"
         aria-expanded={Open ? "true" : undefined}
         onClick={handleClick}
+        
       >
         For Seller
       </LoginButton>
@@ -134,7 +135,7 @@ const CustomButtons = () => {
       >
         <MenuItem onClick={handleClose}>
           <Link
-            to="/addnft/:productID"
+            to="/addnft/2"
             style={{ textDecoration: "none", color: "black" }}
           >
             Add NFT

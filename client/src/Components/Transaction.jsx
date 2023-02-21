@@ -1,6 +1,7 @@
 import axios from "axios";
 import NFT_Digital_Warranty from '../NFT_Digital_Warranty.json';
 import { delTokenID } from "../service/api";
+import Button from '@mui/material/Button';
 
 export default function Transaction() {
     const ethers = require("ethers");
@@ -21,7 +22,7 @@ export default function Transaction() {
             let contract = new ethers.Contract(NFT_Digital_Warranty.address, NFT_Digital_Warranty.abi, signer)
             console.log(typeof(NFT_Digital_Warranty.address))
             console.log(2)
-            const f=(d+e)*3600;
+            const f=(d+e);
             const g=toString(f);
           //create an NFT Token
              await contract.executeSale(c,f,{value:'0'}).then(
@@ -43,8 +44,10 @@ export default function Transaction() {
        
         
     return(
-        <div>
-            <button onClick={sale}>confirm</button>
+        <div style={{display:"flex",justifyContent:"center",alignItems:"center",marginTop:"30vh"}}>
+            <Button variant="contained" color="success" onClick={sale}>
+  Click here to confirm your purchase !
+</Button>
         </div>
     )
 }

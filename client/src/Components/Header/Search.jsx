@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const SearchContainer = styled(Box)`
   border-radius: 2px;
   margin-left: 10px;
-  width: 26%;
+  width: 22%;
   height: 40px;
   background-color: #fff;
   display: flex;

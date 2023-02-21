@@ -132,7 +132,7 @@ export const postProduct = async (request, response) => {
                price:request.body.price,
                product_image:request.body.product_image,
                discription:request.body.discription,
-               expiry:request.body.expiry
+               expiry:request.body.expirys
           })
           product.save()
           .then(user=>{
