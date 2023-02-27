@@ -42,14 +42,6 @@ export const getRepairLog = async (id) => {
 
 
 
-export  const payUsingPaytm = async (data) => {
-    try {
-        let response = await axios.post(`${url}/payment`, data);
-        return response.data;
-    } catch (error) {
-        console.log('error', error);
-    }
-}
 
 export const postTokenID = async (data) => {
     try {

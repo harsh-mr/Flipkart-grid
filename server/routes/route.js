@@ -17,7 +17,7 @@ router.get('/repairlog/:id', getRepairLog);
 
 // router.post('/cart/add', addItemInCart);
 
-router.post('/payment', addPaymentGateway);
+
 router.post('/callback', paymentResponse);
 router.post('/postnft',postNFT);
 router.post('/delnft',delNFT);
