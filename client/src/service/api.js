@@ -61,7 +61,7 @@ export const postTokenID = async (data) => {
 }
 export const delTokenID = async (data) => {
     try {
-        console.log(data);
+        console.log("okay",data);
         return await axios.post(`${url}/delnft`, data)
     } catch (error) {
         console.log('error while calling login API: ', error);

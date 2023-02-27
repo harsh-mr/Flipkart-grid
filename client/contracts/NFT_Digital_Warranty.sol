@@ -32,7 +32,7 @@ contract NFT_Digital_Warranty is ERC721URIStorage {
         
     }
 
-    //the event emitted when a token is successfully listed
+    //the event emitted when a token is successfully listed 
     event TokenListedSuccess (
         uint256 indexed tokenId,
         address owner,

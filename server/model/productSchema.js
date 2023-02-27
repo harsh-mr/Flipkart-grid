@@ -16,7 +16,7 @@ const productSchema = new mongoose.Schema({
    },
    //Stores the price of the product
    price:{
-    type:Number,
+    type:Object,
     required:true
    },
    //Stores the image of the product

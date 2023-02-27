@@ -10,17 +10,17 @@ const nftSchema = new mongoose.Schema({
    serial_no:{
     type:String,
     required:true
-   }
+   },
    //Stores the ipfs url where the nft is stored
-//    tokenURI:{
-//     type:String,
-//     required:true
-//    },
-//    //Stores the serial number corresponding token ids of the corresponding nfts
-//    tokenID:{
-//     type:String,
-//     required:true
-//    }
+    tokenURI:{
+     type:String,
+     required:true
+    },
+   //Stores the serial number corresponding token ids of the corresponding nfts
+    tokenID:{
+    type:String,
+    required:true
+   }
 });
 
 autoIncrement.initialize(mongoose.connection);

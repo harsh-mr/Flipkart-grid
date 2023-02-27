@@ -117,6 +117,7 @@ const Orders = () => {
     var items = await Promise.all(
       nfts.map(async (i) => {
         const tokenURI = await contract.tokenURI(i.tokenId);
+        //let meta = await axios.get(tokenURI);
         let meta = await axios.get(tokenURI);
         meta = meta.data;
 

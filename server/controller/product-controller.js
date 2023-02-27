@@ -3,14 +3,14 @@ import Repairs from '../model/repairSchema.js';
 import sgMail from '@sendgrid/mail'
 
 
-const SENDGRID_API_KEY=''
+const SENDGRID_API_KEY='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'
 
 sgMail.setApiKey(SENDGRID_API_KEY)
 
 export const getProducts = async (request, response) => {
     try {
         const products = await Product.find({});
-
+        console.log("backk",products);
         response.json(products);
     }catch (error) {
         response.json(error);
@@ -68,7 +68,8 @@ export const postNFT = async (request, response) => {
 export const delNFT = async (request, response) => {
     try {
         var date,reason;
-        const{productID,tokenID,email,url,nftname,nftdisc,serialno,time}=request.body;;
+        const{productID,tokenID,email,url,nftname,nftdisc,serialno,time}=request.body;
+        console.log(email)
         Product.findOneAndUpdate({productID:productID},{
             $pull:{tokenID:tokenID}
         },{
@@ -80,8 +81,8 @@ export const delNFT = async (request, response) => {
                  
 
 const msg = {
-  to: email, // Change to your recipient
-  from: 'harshme78@gmail.com', // Change to your verified sender
+  to: 'shreyanushka02@gmail.com', // Change to your recipient
+  from: 'codelunatics303@gmail.com', // Change to your verified sender
   subject: 'Thankyou for shopping with Flipkart',
   text:`Details of the Product you purchased :
          1.ProductID :${productID}

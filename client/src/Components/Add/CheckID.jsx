@@ -9,10 +9,10 @@ export default function Check (){
   async function checkid(){
     let val= await checkProductID(proid);
     if(val==null){
-        window.location.replace("/addnft");
+        window.location.replace("/addproduct");
     }
     else{
-        window.location.replace("/addproduct")
+        window.location.replace("/addnft")
     }
   }
     return (

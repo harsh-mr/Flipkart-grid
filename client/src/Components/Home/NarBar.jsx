@@ -26,6 +26,7 @@ const Text = styled(Typography)`
 `;
 
 const NavBar = () => {
+    //const temp={url:"",text:"hello"};
     return (
         <Component>
             {

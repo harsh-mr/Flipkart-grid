@@ -71,6 +71,7 @@ const RenderTimer = styled(Box)(({ theme }) => ({
 }));
       
 const MultiSlide = ({ data }) => {
+    console.log("okay",data)
     const timerURL = 'https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/timer_a73398.svg';
 
     const renderer = ({ hours, minutes, seconds }) => {
@@ -107,13 +108,13 @@ const MultiSlide = ({ data }) => {
             >
                 {
                     data.map(temp => (
-                        temp.tokenID.length && (
+                       temp.tokenID[0] &&   (
                         <Link to={`product/${temp._id}`} style={{textDecoration: 'none'}}>
                             <Box textAlign="center" style={{ padding: '25px 15px' }}>
                                 <Image src={temp.product_image} />
-                                <Text style={{ fontWeight: 600, color: '#212121' }}>{temp.name}</Text>
-                                <Text style={{ color: 'grey' }}>{temp.product_name}</Text>
-                                <Text style={{ color: 'green' }}>₹ {temp.price}</Text>
+                                <Text style={{ fontWeight: 600, color: '#212121' }}>{temp.product_name}</Text>
+                                <Text style={{ color: 'grey' }}>{temp.discription}</Text>
+                                <Text style={{ color: 'green' }}>₹ {temp.price }</Text>
                                 
                             </Box>
                         </Link>
@@ -125,6 +126,7 @@ const MultiSlide = ({ data }) => {
 }
 
 const Slide = ({data}) => {
+   
     return (
         <>
             {

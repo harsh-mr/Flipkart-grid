@@ -12,6 +12,7 @@ export const uploadJSONToIPFS = async(JSONBody) => {
     return axios 
         .post(url, JSONBody, {
             headers: {
+                //'Content-Type': `multipart/form-data; boundary=${JSONBody._boundary}`,
                 pinata_api_key: "e3bd9f4f1c70ec3e54d3",
                 pinata_secret_api_key: "087d698155867cbcb07fbc967330a9eee0f1938fd03495c5d701e9e9c3f2c886",
             }
@@ -19,7 +20,8 @@ export const uploadJSONToIPFS = async(JSONBody) => {
         .then(function (response) {
            return {
                success: true,
-               pinataURL: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
+               pinataURL: " https://gateway.moralisipfs.com/ipfs/" + response.data.IpfsHash
+               //pinataURL: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
            };
         })
         .catch(function (error) {
@@ -72,14 +74,15 @@ export const uploadFileToIPFS = async(file) => {
             headers: {
                 'Content-Type': `multipart/form-data; boundary=${data._boundary}`,
                 pinata_api_key: "e3bd9f4f1c70ec3e54d3",
-                pinata_secret_api_key: "087d698155867cbcb07fbc967330a9eee0f1938fd03495c5d701e9e9c3f2c886",
+                pinata_secret_api_key: "087d698155867cbcb07fbc967330a9eee0f1938fd03495c5d701e9e9c3f2c886"
             }
         })
         .then(function (response) {
             console.log("image uploaded", response.data.IpfsHash)
             return {
                success: true,
-               pinataURL: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
+               pinataURL: " https://gateway.moralisipfs.com/ipfs/" + response.data.IpfsHash
+              // pinataURL: "https://gateway.pinata.cloud/ipfs/" + response.data.IpfsHash
            };
         })
         .catch(function (error) {
